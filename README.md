@@ -1,1 +1,1 @@
-# HitMarker-SA-MP
+# HitMarker SA-MP
