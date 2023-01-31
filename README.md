@@ -14,6 +14,9 @@ A hitmarker is the little x that pops up in your crosshairs when one of your bul
 ## Documentation
 Documentation can be found on the [Wiki](https://github.com/Bren828/HitMarker-SA-MP/wiki).
 
+## Download
+[Releases page](https://github.com/Bren828/HitMarker-SA-MP/releases)
+
 ## Installation
 
 Include in your code and begin using the library:
