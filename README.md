@@ -108,7 +108,7 @@ Include in your code and begin using the library:
 
 #### HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y)
 > Изменить положение хитмаркера 
-> * `playerid` - [Definition](https://github.com/Bren828/HitMarker-SA-MP#change-position)
+> * `playerid` - [Position determination](https://github.com/Bren828/HitMarker-SA-MP#change-position)
 > * `crosshair_type` - 
 > * `Float:x` - 
 > * `Float:y` - 
@@ -118,7 +118,7 @@ Include in your code and begin using the library:
 #### GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y)
 > Узнать текущие положение хитмаркера
 > * `playerid` - The ID of the player
-> * `crosshair_type` - [Definition](https://github.com/Bren828/HitMarker-SA-MP#change-position)
+> * `crosshair_type` - [Position determination](https://github.com/Bren828/HitMarker-SA-MP#change-position)
 > * `&Float:x` - 
 > * `&Float:y` - 
 > * `&Float:size_x` - 
