@@ -57,32 +57,32 @@ Include in your code and begin using the library:
   
 ## Functions:
 
-#### HitmarkerEnabled(playerid);
+#### HitmarkerEnabled(playerid)
 > Enable hitmarker
 > * `playerid` - The ID of the player
 
-#### HitmarkerDisable(playerid);
+#### HitmarkerDisable(playerid)
 > Disable hitmarker
 > * `playerid` - The ID of the player
   
-#### bool:HitmarkerStatus(playerid);
+#### bool:HitmarkerStatus(playerid)
 > Check hitmarker status
 > * `playerid` - The ID of the player
 > * Return (true) if enabled or (false) if disabled
   
-#### HitmarkerColor(playerid, type, color);
+#### HitmarkerColor(playerid, type, color)
 > Change hitmarker color
 > * `playerid` - The ID of the player
 > * `type` - 
 > * `color` - 
 
-#### GetHitmarkerColor(playerid, type);
+#### GetHitmarkerColor(playerid, type)
 > Узнать текущий цвет хитмаркера
 > * `playerid` - The ID of the player
 > * `type` - 
 > * Returns the color
 
-#### HitmarkerDisableWeapon(playerid, weaponid, bool:disable);
+#### HitmarkerDisableWeapon(playerid, weaponid, bool:disable)
 > Выключить хитмаркер для определенного оружия
 > * `playerid` - The ID of the player
 > * `weaponid` - 
@@ -90,23 +90,23 @@ Include in your code and begin using the library:
 > * При отключении огневого оружия, отключается оружие (ID: 18, 37)
 > * При отключении взрывного оружия, отключается оружие (ID: 16, 35, 36, 39, 51) Не распространяется на воздушный транспорт.
 
-#### GetHitmarkerDisabledWeapon(playerid, weaponid);
+#### GetHitmarkerDisabledWeapon(playerid, weaponid)
 > Узнать статус хитмаркера у определенного оружия
 > * `playerid` - The ID of the player
 > * `weaponid` - 
 > * Return (true) if enabled or (false) if disabled
 
-#### HitmarkerSoundDamage(playerid, soundid);
+#### HitmarkerSoundDamage(playerid, soundid)
 > Включить звук попадания
 > * `playerid` - The ID of the player
 > * `soundid` - 
 
-#### GetHitmarkerSoundDamage(playerid);
-> * `playerid` - The ID of the player
+#### GetHitmarkerSoundDamage(playerid)
 > Узнать текущий звук попадания
+> * `playerid` - The ID of the player
 > * Returns sound ID
 
-#### HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y);
+#### HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y)
 > Изменить положение хитмаркера 
 > * `playerid` - The ID of the player
 > * `crosshair_type` - 
@@ -115,7 +115,7 @@ Include in your code and begin using the library:
 > * `Float:size_x` - 
 > * `Float:size_y` - 
 
-#### GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y);
+#### GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y)
 > Узнать текущие положение хитмаркера
 > * `playerid` - The ID of the player
 > * `crosshair_type` - 
@@ -124,23 +124,23 @@ Include in your code and begin using the library:
 > * `&Float:size_x` - 
 > * `&Float:size_y` - 
 
-#### HitmarkerEnablePlayerDamage(playerid, bool:enable);
+#### HitmarkerEnablePlayerDamage(playerid, bool:enable)
 > Включить индикацию урона по игроку
 > * `playerid` - The ID of the player
 > * `enable` - `true` to enable / `false` to disable
 > * По стандарту включено
 
-#### GetHitmarkerEnablePlayerDamage(playerid);
+#### GetHitmarkerEnablePlayerDamage(playerid)
 > Узнать статус индикации урона по игроку
 > * `playerid` - The ID of the player
 > * Return (true) if enabled or (false) if disabled
 
-#### HitmarkerEnableVehicleDamage(playerid, bool:enable);
+#### HitmarkerEnableVehicleDamage(playerid, bool:enable)
 > Включить индикацию урона по транспорту
 > * `playerid` - The ID of the player
 > * `enable` - `true` to enable / `false` to disable
 
-#### GetHitmarkerEnableVehicleDamage(playerid);
+#### GetHitmarkerEnableVehicleDamage(playerid)
 > Узнать статус индикации урона по транспорту
 > * `playerid` - The ID of the player
 > * Return (true) if enabled or (false) if disabled
