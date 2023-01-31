@@ -73,19 +73,19 @@ Include in your code and begin using the library:
 #### HitmarkerColor(playerid, type, color)
 > Change hitmarker color
 > * `playerid` - The ID of the player
-> * `type` - 
+> * `type` - [Color change](https://github.com/Bren828/HitMarker-SA-MP/blob/main/README.md#definition)
 > * `color` - 
 
 #### GetHitmarkerColor(playerid, type)
 > Узнать текущий цвет хитмаркера
 > * `playerid` - The ID of the player
-> * `type` - 
+> * `type` - [Color change](https://github.com/Bren828/HitMarker-SA-MP/blob/main/README.md#definition)
 > * Returns the color
 
 #### HitmarkerDisableWeapon(playerid, weaponid, bool:disable)
 > Выключить хитмаркер для определенного оружия
 > * `playerid` - The ID of the player
-> * `weaponid` - 
+> * `weaponid` - [Weapon IDs](https://github.com)
 > * `disable` - `true` to enable / `false` to disable
 > * При отключении огневого оружия, отключается оружие (ID: 18, 37)
 > * При отключении взрывного оружия, отключается оружие (ID: 16, 35, 36, 39, 51) Не распространяется на воздушный транспорт.
@@ -93,13 +93,13 @@ Include in your code and begin using the library:
 #### GetHitmarkerDisabledWeapon(playerid, weaponid)
 > Узнать статус хитмаркера у определенного оружия
 > * `playerid` - The ID of the player
-> * `weaponid` - 
+> * `weaponid` - [Weapon IDs](https://github.com)
 > * Return (true) if enabled or (false) if disabled
 
 #### HitmarkerSoundDamage(playerid, soundid)
 > Включить звук попадания
 > * `playerid` - The ID of the player
-> * `soundid` - 
+> * `soundid` - [Sound IDs](https://github.com/openmultiplayer/web/blob/master/docs/scripting/resources/sound-ids.md)
 
 #### GetHitmarkerSoundDamage(playerid)
 > Узнать текущий звук попадания
