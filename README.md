@@ -73,13 +73,13 @@ Include in your code and begin using the library:
 #### HitmarkerColor(playerid, type, color)
 > Change hitmarker color
 > * `playerid` - The ID of the player
-> * `type` - [Color change](https://github.com/Bren828/HitMarker-SA-MP/blob/main/README.md#definition)
+> * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP/blob/main/README.md#definition)
 > * `color` - 
 
 #### GetHitmarkerColor(playerid, type)
 > Узнать текущий цвет хитмаркера
 > * `playerid` - The ID of the player
-> * `type` - [Color change](https://github.com/Bren828/HitMarker-SA-MP/blob/main/README.md#definition)
+> * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP/blob/main/README.md#definition)
 > * Returns the color
 
 #### HitmarkerDisableWeapon(playerid, weaponid, bool:disable)
@@ -108,7 +108,7 @@ Include in your code and begin using the library:
 
 #### HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y)
 > Изменить положение хитмаркера 
-> * `playerid` - [Change position](https://github.com/Bren828/HitMarker-SA-MP#change-position)
+> * `playerid` - [Definition](https://github.com/Bren828/HitMarker-SA-MP#change-position)
 > * `crosshair_type` - 
 > * `Float:x` - 
 > * `Float:y` - 
@@ -118,7 +118,7 @@ Include in your code and begin using the library:
 #### GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y)
 > Узнать текущие положение хитмаркера
 > * `playerid` - The ID of the player
-> * `crosshair_type` - [Change position](https://github.com/Bren828/HitMarker-SA-MP#change-position)
+> * `crosshair_type` - [Definition](https://github.com/Bren828/HitMarker-SA-MP#change-position)
 > * `&Float:x` - 
 > * `&Float:y` - 
 > * `&Float:size_x` - 
