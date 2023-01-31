@@ -12,6 +12,9 @@ Include in your code and begin using the library:
 #include <Hitmarker>
 ```
 
+## Documentation
+Documentation can be found on the [Wiki](https://github.com/Bren828/HitMarker-SA-MP/wiki).
+
 ## Definition
 
 #### Color change
