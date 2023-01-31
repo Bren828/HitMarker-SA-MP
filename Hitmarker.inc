@@ -8,121 +8,24 @@
 ///////////////////////////////////////////////////////
 
 
-Включить Hitmarker
-	HitmarkerEnabled(playerid);
+#define HITMARKER_KILLSHOTS						0
+#define HITMARKER_VEHICLE_DAMAGE				1
+#define HITMARKER_BODYPART_TORSO 				3
+#define HITMARKER_BODYPART_GROIN 				4
+#define HITMARKER_BODYPART_LEFT_ARM 			5
+#define HITMARKER_BODYPART_RIGHT_ARM 			6
+#define HITMARKER_BODYPART_LEFT_LEG 			7
+#define HITMARKER_BODYPART_RIGHT_LEG 			8
+#define HITMARKER_BODYPART_HEAD 				9
 
-Выключить Hitmarker
-	HitmarkerDisable(playerid);
+#define HITMARKER_WEAPON_FIST					0
+#define HITMARKER_DEATH_UNDER_VEHICLE			50
+#define HITMARKER_ALL_EXPLOSION					51
+#define HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN	52
+#define HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS	53
 
-Узнать статус хитмаркера
-	bool:HitmarkerStatus(playerid);
-	Вернет: false если выключен
-	Вернет: true если включен
-
-
-Изменить цвет хитмаркера
-	HitmarkerColor(playerid, type, color);
-
-Узнать текущий цвет хитмаркера
-	GetHitmarkerColor(playerid, type);
-
-Выключить хитмаркер для определенного оружия
-	HitmarkerDisableWeapon(playerid, weaponid, bool:disable);
-	* При отключении огневого оружия, отключается оружие (ID: 18, 37)
-	* При отключении взрывного оружия, отключается оружие (ID: 16, 35, 36, 39, 51) Не распространяется на воздушный транспорт.
-
-Узнать статус хитмаркера у определенного оружия
-	GetHitmarkerDisabledWeapon(playerid, weaponid);
-
-Включить звук попадания
-	HitmarkerSoundDamage(playerid, soundid);
-
-Узнать текущий звук попадания
-	GetHitmarkerSoundDamage(playerid);
-
-Изменить положение хитмаркера 
-	HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y);
-
-Узнать текущие положение хитмаркера 
-	GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y);
-
-Включить индикацию урона по игроку
-	HitmarkerEnablePlayerDamage(playerid, bool:enable);
-	* По стандарту включено
-
-Узнать статус индикации урона по игроку
-	GetHitmarkerEnablePlayerDamage(playerid);
-
-Включить индикацию урона по транспорту
-	HitmarkerEnableVehicleDamage(playerid, bool:enable);
-
-Узнать статус индикации урона по транспорту
-	GetHitmarkerEnableVehicleDamage(playerid);
-
-
-/////////////
-	Usage
-/////////////
-
-
-CMD:Hitmarker(playerid)
-{
-	if(HitmarkerStatus(playerid) == false) // Узнаем состояние хитмаркера
-	{
-		// Включаем хитмаркер
-		HitmarkerEnabled(playerid);
-
-		// Устанавливаем нужные цвета попадания
-		HitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 		0xFFFFFFFF);
-		HitmarkerColor(playerid, HITMARKER_BODYPART_GROIN, 		0x7CFC00FF);
-		HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_ARM, 	0xFFA500FF);
-		HitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_ARM, 	0xFFD700FF);
-		HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_LEG, 	0x00BFFFFF);
-		HitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_LEG, 	0x00FFFFFF);
-		HitmarkerColor(playerid, HITMARKER_BODYPART_HEAD, 		0xFF00FFFF);
-
-		HitmarkerColor(playerid, HITMARKER_KILLSHOTS, 			0xFF0000FF);
-		HitmarkerColor(playerid, HITMARKER_VEHICLE_DAMAGE, 		0xB03060FF);
-
-		// Включаем индикацию урона по транспорту
-		HitmarkerEnableVehicleDamage(playerid, true);
-
-		// Отключаем индикацию урона оружием (ID: 5) - Бейсбольная бита
-		HitmarkerDisableWeapon(playerid, WEAPON_BAT, true);
-
-		// Отключаем индикацию урона наносимого воздушным транспортом при помощи пулемета
-		HitmarkerDisableWeapon(playerid, HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN, true);
-
-		GameTextForPlayer(playerid, "Hitmarker ~g~~h~On", 1200, 4);
-	}
-	else 
-	{
-		// Выключаем хитмаркер
-		HitmarkerDisable(playerid);
-		GameTextForPlayer(playerid, "Hitmarker ~r~~h~Off", 1200, 4);
-	}
-	return 1;
-}
-*/
-
-#define HITMARKER_KILLSHOTS						0	//При полном убийстве игрока
-#define HITMARKER_VEHICLE_DAMAGE				1	//При попадании по транспорту 
-#define HITMARKER_BODYPART_TORSO 				3	//При попадании по торсу
-#define HITMARKER_BODYPART_GROIN 				4	//При попадании по паху
-#define HITMARKER_BODYPART_LEFT_ARM 			5	//При попадании по левой руке
-#define HITMARKER_BODYPART_RIGHT_ARM 			6	//При попадании по правой руке
-#define HITMARKER_BODYPART_LEFT_LEG 			7	//При попадании по левой ноге 
-#define HITMARKER_BODYPART_RIGHT_LEG 			8	//При попадании по правой ноге
-#define HITMARKER_BODYPART_HEAD 				9	//При попадании в голову
-
-#define HITMARKER_WEAPON_FIST					0	//Урон получен кулаком
-#define HITMARKER_DEATH_UNDER_VEHICLE			50	//Игрок умер под транспортом или от винтов вертолета
-#define HITMARKER_ALL_EXPLOSION					51	//Игрок умер от взрыва
-#define HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN	52	//Игрок умер от спец оружие воздушного транспорта пулемет
-#define HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS	53	//Игрок умер от спец оружие воздушного транспорта ракета
-
-#define HITMARKER_STANDARD_CROSSHAIR 			0	//Изменение положение стандартного прицела
-#define HITMARKER_CENTRE_CROSSHAIR 				1	//Изменение положение прицела по центру
+#define HITMARKER_STANDARD_CROSSHAIR 			0
+#define HITMARKER_CENTRE_CROSSHAIR 				1
 
 #define _Hitmarker_button(%0) (((newkeys & (%0)) != (%0)) && ((oldkeys & (%0)) == (%0)))
 
@@ -441,8 +344,7 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 public OnPlayerDeath(playerid, killerid, reason)
 {
     if(killerid != INVALID_PLAYER_ID && Hitmarker[killerid][h_Enabled] == true)
-	{/*
-		* Если игрок убил другого игрока, меняем ему цвет хитмаркера */
+	{
 		Hitmarker[killerid][h_ShowTD] = true;
 		Hitmarker[killerid][h_ShowTime] = GetTickCount() + 400;
 		Hitmarker[killerid][h_Bodypart] = -1;
@@ -453,8 +355,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		_HitmarkerShowTD(killerid, reason);
 	}
 	if(Hitmarker[playerid][h_Enabled] == true && Hitmarker[playerid][h_ShowTD] == true)
-	{/* 
-		* Игрок который наносил урон умер. Скрываем ему хитмаркер */
+	{
 		Hitmarker[playerid][h_ShowTD] = false;
 		Hitmarker[playerid][h_ShowTime] = 0;
 		Hitmarker[playerid][h_Bodypart] = -1;
@@ -500,7 +401,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		{
 			if(Hitmarker[playerid][h_HitTypeID] != hittype && Hitmarker[playerid][h_HitType][hittype] == true && (hittype == BULLET_HIT_TYPE_VEHICLE || hittype == BULLET_HIT_TYPE_PLAYER))
 			{
-				// * Обновляем цвет хитмаркера, если изменился hittype
 				Hitmarker[playerid][h_Bodypart] = -1;
 				Hitmarker[playerid][h_HitTypeID] = hittype;
 
@@ -511,11 +411,9 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			}
 			else if(Hitmarker[playerid][h_HitTypeID] == hittype && hittype == BULLET_HIT_TYPE_VEHICLE && Hitmarker[playerid][h_HitType][BULLET_HIT_TYPE_VEHICLE] == true) 
 			{
-				Hitmarker[playerid][h_ShowTime] = GetTickCount() + 400;//таймер скрытия TextDraw
+				Hitmarker[playerid][h_ShowTime] = GetTickCount() + 400;
 				if(Hitmarker[playerid][h_ColorTD] != Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE])
 				{
-					// * если стрелять в край руки персонажа, и плавно переводить прицел в сторону машины, цвет хитмаркера не будет меняться.
-					// * проблема в том что, пуля проходит сквозь персонажа и попадает в транспорт. OnPlayerWeaponShot вызывается раньше чем OnPlayerTakeDamage, и тем самым меняет цвет хитмаркера.
 					Hitmarker[playerid][h_ColorTD] = Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE];
 					PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE]);
 					PlayerTextDrawShow(playerid, Hitmarker[playerid][h_HitTD]);
