@@ -12,7 +12,7 @@ A hitmarker is the little x that pops up in your crosshairs when one of your bul
 * Включение/Выключение индикации попадания по игроку и по транспорту.
 
 ## Documentation
-Documentation can be found on the [Wiki](https://github.com/Bren828/HitMarker-SA-MP/wiki).
+Documentation can be found on the [Wiki](https://github.com/Bren828/HitMarker-SA-MP/wiki)
 
 ## Download
 [Releases page](https://github.com/Bren828/HitMarker-SA-MP/releases)
