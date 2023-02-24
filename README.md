@@ -21,6 +21,6 @@ Documentation can be found on the [Wiki](https://github.com/Bren828/HitMarker-SA
 
 Include in your code and begin using the library:
 ```pawn
-#include <Hitmarker>
+#include <hitmarker>
 ```
 
