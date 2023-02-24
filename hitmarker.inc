@@ -7,6 +7,10 @@
 
 ///////////////////////////////////////////////////////
 
+#if defined _hitmarker_included
+	#endinput
+#endif
+#define _hitmarker_included
 
 #define HITMARKER_KILLSHOTS						0
 #define HITMARKER_VEHICLE_DAMAGE				1
