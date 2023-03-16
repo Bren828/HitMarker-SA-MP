@@ -1,37 +1,208 @@
 
 /*
-///////////////////////////////////////////////////////
-
-	Creater - @Bren828 					
-									31 January 2023
-
-///////////////////////////////////////////////////////
+*
+*
+*
+*   ---------------------------------------------------
+*
+*	Creater - @Bren828 					
+*									16 March 2023
+*
+*   Version: 1.1
+*
+*   ---------------------------------------------------
+*
+*
+*	https://github.com/Bren828/HitMarker-SA-MP
+*
+*
+*
+* Включить Hitmarker
+*       HitmarkerEnabled(playerid);
+*       * playerid: ID игрока
+*	
+*	
+* Выключить Hitmarker
+*      	HitmarkerDisable(playerid);
+*       * playerid: ID игрока
+*	
+*	
+* Узнать статус хитмаркера
+*      	bool:HitmarkerStatus(playerid);
+*       * playerid: ID игрока
+*	
+*      	Вернет: false если выключен / true если включен
+*	
+*	
+* Изменить цвет хитмаркера
+*      	HitmarkerColor(playerid, type, color);
+* 		* playerid: id игрока
+*		* type: тип цвета
+*		* color: цвет
+*	
+*	
+* Узнать текущий цвет хитмаркера
+*       GetHitmarkerColor(playerid, type);
+* 		* playerid: id игрока
+*		* type: тип цвета
+*	
+*	    Вернет: id цвета
+*	
+*	
+* Выключить хитмаркер для определенного оружия
+*      	HitmarkerDisableWeapon(playerid, weaponid, bool:disable);
+* 		* playerid: id игрока
+*		* weaponid: id оружия
+*		* bool:disable: true для отключения / false для включения
+*	
+*      	* ПРИМЕЧАНИЕ: При отключении огневого оружия, отключается оружие (ID: 18, 37)
+*      	* ПРИМЕЧАНИЕ: При отключении взрывного оружия, отключается оружие (ID: 16, 35, 36, 39, 51) Не распространяется на воздушный транспорт.
+*	
+*	
+* Узнать статус хитмаркера у определенного оружия
+*      	GetHitmarkerDisabledWeapon(playerid, weaponid);
+* 		* playerid: id игрока
+*		* weaponid: id оружия
+*	
+*		* Вернет: true если отключено / false если включено
+*	
+*	
+* Включить звук попадания
+*      	HitmarkerSoundDamage(playerid, soundid);
+* 		* playerid: id игрока
+* 		* soundid: идентификатор звука
+*	
+*	
+* Узнать текущий звук попадания
+*      	GetHitmarkerSoundDamage(playerid);
+* 		* playerid: id игрока
+*	
+*		* Вернет: идентификатор звука
+*	
+*	
+* Изменить положение хитмаркера 
+*      	HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y);
+* 		* playerid: id игрока
+* 		* crosshair_type: тип перекрестия
+* 		* Float:x: Координата X (левая/правая)
+* 		* Float:y: Координата Y (вверх/вниз)
+* 		* Float:size_x: Ширина
+* 		* Float:size_y: Высота
+*	
+*	
+* Узнать текущие положение хитмаркера 
+*      	GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y);
+* 		* playerid: id игрока
+* 		* crosshair_type: тип перекрестия
+* 		* &Float:x: Координата X (левая/правая)
+* 		* &Float:y: Координата Y (вверх/вниз)
+* 		* &Float:size_x: Ширина
+* 		* &Float:size_y: Высота
+*	
+*	
+* Включить индикацию урона по игроку
+*      	HitmarkerEnablePlayerDamage(playerid, bool:enable);
+* 		* playerid: id игрока
+* 		* bool:enable: true для включения / false для отключения
+*	
+*	   	* ПРИМЕЧАНИЕ: По стандарту включено
+*	
+*	
+* Узнать статус индикации урона по игроку
+*      	GetHitmarkerEnablePlayerDamage(playerid);
+* 		* playerid: id игрока
+*	
+*	    * Вернет: true если включено / false если отключено
+*	
+*	
+* Включить индикацию урона по транспорту
+*      	HitmarkerEnableVehicleDamage(playerid, bool:enable);
+* 		* playerid: id игрока
+* 		* bool:enable: true для включения / false для отключения
+*	
+*	
+* Узнать статус индикации урона по транспорту
+*      	GetHitmarkerEnableVehicleDamage(playerid);
+* 		* playerid: id игрока
+*	
+* 		* Вернет: true если включено / false если отключено
+*	
+*	
+*	/////////////
+*		Usage
+*	/////////////
+*	
+*	
+*	CMD:hitmarker(playerid)
+*	{
+*		if(HitmarkerStatus(playerid) == false) // Узнаем состояние хитмаркера
+*		{
+*			// Включаем хитмаркер
+*			HitmarkerEnabled(playerid);
+*	
+*			// Устанавливаем нужные цвета попадания
+*			HitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 		0xFFFFFFFF);
+*			HitmarkerColor(playerid, HITMARKER_BODYPART_GROIN, 		0x7CFC00FF);
+*			HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_ARM, 	0xFFA500FF);
+*			HitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_ARM, 	0xFFD700FF);
+*			HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_LEG, 	0x00BFFFFF);
+*			HitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_LEG, 	0x00FFFFFF);
+*			HitmarkerColor(playerid, HITMARKER_BODYPART_HEAD, 		0xFF00FFFF);
+*	
+*			HitmarkerColor(playerid, HITMARKER_KILLSHOTS, 			0xFF0000FF);
+*			HitmarkerColor(playerid, HITMARKER_VEHICLE_DAMAGE, 		0xB03060FF);
+*	
+*			// Включаем индикацию урона по транспорту
+*			HitmarkerEnableVehicleDamage(playerid, true);
+*	
+*			// Отключаем индикацию урона оружием (ID: 5) - Бейсбольная бита
+*			HitmarkerDisableWeapon(playerid, WEAPON_BAT, true);
+*	
+*			// Отключаем индикацию урона наносимого воздушным транспортом при помощи пулемета
+*			HitmarkerDisableWeapon(playerid, HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN, true);
+*	
+*			GameTextForPlayer(playerid, "Hitmarker ~g~~h~On", 1200, 4);
+*		}
+*		else 
+*		{
+*			// Выключаем хитмаркер
+*			HitmarkerDisable(playerid);
+*			GameTextForPlayer(playerid, "Hitmarker ~r~~h~Off", 1200, 4);
+*		}
+*		return 1;
+*	}
+* 
+*
+*/
 
 #if defined _hitmarker_included
 	#endinput
 #endif
 #define _hitmarker_included
 
-#define HITMARKER_KILLSHOTS						0
-#define HITMARKER_VEHICLE_DAMAGE				1
-#define HITMARKER_BODYPART_TORSO 				3
-#define HITMARKER_BODYPART_GROIN 				4
-#define HITMARKER_BODYPART_LEFT_ARM 			5
-#define HITMARKER_BODYPART_RIGHT_ARM 			6
-#define HITMARKER_BODYPART_LEFT_LEG 			7
-#define HITMARKER_BODYPART_RIGHT_LEG 			8
-#define HITMARKER_BODYPART_HEAD 				9
+#if !defined HITMARKER_SHOW_TIME
+	#define HITMARKER_SHOW_TIME  	            400 // время отображение хитмаркера на экране в миллисекундах
+#endif
 
-#define HITMARKER_WEAPON_FIST					0
-#define HITMARKER_DEATH_UNDER_VEHICLE			50
-#define HITMARKER_ALL_EXPLOSION					51
-#define HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN	52
-#define HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS	53
+#define HITMARKER_KILLSHOTS						0 // при полном убийстве игрока
+#define HITMARKER_VEHICLE_DAMAGE				1 // при попадании по транспорту 
+#define HITMARKER_BODYPART_TORSO 				3 // при попадании по торсу
+#define HITMARKER_BODYPART_GROIN 				4 // при попадании по паху
+#define HITMARKER_BODYPART_LEFT_ARM 			5 // при попадании по левой руке
+#define HITMARKER_BODYPART_RIGHT_ARM 			6 // при попадании по правой руке
+#define HITMARKER_BODYPART_LEFT_LEG 			7 // при попадании по левой ноге 
+#define HITMARKER_BODYPART_RIGHT_LEG 			8 // при попадании по правой ноге
+#define HITMARKER_BODYPART_HEAD 				9 // при попадании в голову
 
-#define HITMARKER_STANDARD_CROSSHAIR 			0
-#define HITMARKER_CENTRE_CROSSHAIR 				1
+#define HITMARKER_WEAPON_FIST					0 // урон получен кулаком
+#define HITMARKER_DEATH_UNDER_VEHICLE			50 // игрок умер под транспортом или от винтов вертолета
+#define HITMARKER_ALL_EXPLOSION					51 // игрок умер от взрыва
+#define HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN	52 // игрок умер от спец оружие воздушного транспорта пулемет
+#define HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS	53 // игрок умер от спец оружие воздушного транспорта ракета
 
-#define _Hitmarker_button(%0) (((newkeys & (%0)) != (%0)) && ((oldkeys & (%0)) == (%0)))
+#define HITMARKER_STANDARD_CROSSHAIR 			0 // изменение положение стандартного прицела
+#define HITMARKER_CENTRE_CROSSHAIR 				1 // изменение положение прицела по центру
+
 
 enum HITMARKER_EN
 {
@@ -295,7 +466,12 @@ public _HitmarkerTimer(playerid)
 	return 1;
 }
 
-public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
+
+#if defined _inc_y_hooks || defined _INC_y_hooks
+	hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
+#else
+	public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
+#endif
 {
     if(issuerid != INVALID_PLAYER_ID && Hitmarker[issuerid][h_Enabled] == true && GetPlayerState(playerid) != PLAYER_STATE_WASTED && GetPlayerState(issuerid) != PLAYER_STATE_WASTED && Hitmarker[issuerid][h_HitType][BULLET_HIT_TYPE_PLAYER] == true && bodypart >= 3 && bodypart <= 9 && weaponid <= 51)
 	{ 
@@ -312,7 +488,7 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 		
 		if(check == false)
 		{
-			Hitmarker[issuerid][h_ShowTime] = GetTickCount() + 400;
+			Hitmarker[issuerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;
 			if(Hitmarker[issuerid][h_ShowTD] == false || Hitmarker[issuerid][h_ShowTD] == true && (Hitmarker[issuerid][h_Bodypart] != bodypart || Hitmarker[issuerid][h_WeaponIDDamage] != weaponid || Hitmarker[issuerid][h_ModeCamera] != GetPlayerCameraMode(issuerid)))
 			{
 				Hitmarker[issuerid][h_ShowTD] = true;
@@ -330,27 +506,37 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 			}
 		}
 	}
-    #if defined OnPlayerTakeDamage_Hitmarker
-        OnPlayerTakeDamage_Hitmarker(playerid, issuerid, amount, weaponid, bodypart);
-    #endif
-    return 1;
+    #if !defined _inc_y_hooks && !defined _INC_y_hooks && defined OnPlayerTakeDamage_Hitmarker
+		return OnPlayerTakeDamage_Hitmarker(playerid, issuerid, amount, weaponid, bodypart);
+	#else
+		return 1;
+	#endif
 }
-#if defined _ALS_OnPlayerTakeDamage
-    #undef OnPlayerTakeDamage
-#else
-    #define _ALS_OnPlayerTakeDamage
-#endif
-#define OnPlayerTakeDamage OnPlayerTakeDamage_Hitmarker
-#if defined OnPlayerTakeDamage_Hitmarker
-    forward OnPlayerTakeDamage_Hitmarker(playerid, issuerid, Float:amount, weaponid, bodypart);
+#if !defined _inc_y_hooks && !defined _INC_y_hooks
+	#if defined _ALS_OnPlayerTakeDamage
+		#undef OnPlayerTakeDamage
+	#else
+		#define _ALS_OnPlayerTakeDamage
+	#endif
+	#define OnPlayerTakeDamage OnPlayerTakeDamage_Hitmarker
+	#if defined OnPlayerTakeDamage_Hitmarker
+		forward OnPlayerTakeDamage_Hitmarker(playerid, issuerid, Float:amount, weaponid, bodypart);
+	#endif
 #endif
 
-public OnPlayerDeath(playerid, killerid, reason)
+
+
+#if defined _inc_y_hooks || defined _INC_y_hooks
+	hook OnPlayerDeath(playerid, killerid, reason)
+#else
+	public OnPlayerDeath(playerid, killerid, reason)
+#endif
 {
     if(killerid != INVALID_PLAYER_ID && Hitmarker[killerid][h_Enabled] == true)
-	{
+	{/*
+		* Если игрок убил другого игрока, меняем ему цвет хитмаркера */
 		Hitmarker[killerid][h_ShowTD] = true;
-		Hitmarker[killerid][h_ShowTime] = GetTickCount() + 400;
+		Hitmarker[killerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;
 		Hitmarker[killerid][h_Bodypart] = -1;
 		Hitmarker[killerid][h_WeaponIDDamage] = reason;
 		Hitmarker[killerid][h_SpecialAction] = GetPlayerSpecialAction(killerid);
@@ -359,7 +545,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 		_HitmarkerShowTD(killerid, reason);
 	}
 	if(Hitmarker[playerid][h_Enabled] == true && Hitmarker[playerid][h_ShowTD] == true)
-	{
+	{/* 
+		* Игрок который наносил урон умер. Скрываем ему хитмаркер */
 		Hitmarker[playerid][h_ShowTD] = false;
 		Hitmarker[playerid][h_ShowTime] = 0;
 		Hitmarker[playerid][h_Bodypart] = -1;
@@ -368,22 +555,31 @@ public OnPlayerDeath(playerid, killerid, reason)
 		PlayerTextDrawHide(playerid, Hitmarker[playerid][h_HitTD]);
 		if(Hitmarker[playerid][h_SoundDamage] != 0) PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
 	}
-    #if defined OnPlayerDeath_Hitmarker
-        OnPlayerDeath_Hitmarker(playerid, killerid, reason);
-    #endif
-    return 1;
+    #if !defined _inc_y_hooks && !defined _INC_y_hooks && defined OnPlayerDeath_Hitmarker
+		return OnPlayerDeath_Hitmarker(playerid, killerid, reason);
+	#else
+		return 1;
+	#endif
 }
-#if defined _ALS_OnPlayerDeath
-    #undef OnPlayerDeath
-#else
-    #define _ALS_OnPlayerDeath
-#endif
-#define OnPlayerDeath OnPlayerDeath_Hitmarker
-#if defined OnPlayerDeath_Hitmarker
-    forward OnPlayerDeath_Hitmarker(playerid, killerid, reason);
+#if !defined _inc_y_hooks && !defined _INC_y_hooks
+	#if defined _ALS_OnPlayerDeath
+		#undef OnPlayerDeath
+	#else
+		#define _ALS_OnPlayerDeath
+	#endif
+	#define OnPlayerDeath OnPlayerDeath_Hitmarker
+	#if defined OnPlayerDeath_Hitmarker
+		forward OnPlayerDeath_Hitmarker(playerid, killerid, reason);
+	#endif
 #endif
 
-public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
+
+
+#if defined _inc_y_hooks || defined _INC_y_hooks
+	hook OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
+#else
+	public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
+#endif
 {
 	if(Hitmarker[playerid][h_Enabled] == true && (weaponid >= 22 && weaponid <= 34 || weaponid == 38) && Hitmarker[playerid][h_DisableWeapon][weaponid] == false)
 	{
@@ -391,7 +587,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	    if((carmode == 4 || carmode == 7 || carmode == 53 || carmode == 55) && hittype >= 1 && hittype <= 2 && Hitmarker[playerid][h_HitType][hittype] == true && Hitmarker[playerid][h_ShowTD] == false && hitid != INVALID_PLAYER_ID && (hittype == BULLET_HIT_TYPE_PLAYER && GetPlayerState(hitid) != PLAYER_STATE_WASTED || hittype == BULLET_HIT_TYPE_VEHICLE /* driver check */) )
 	    {
 			Hitmarker[playerid][h_ShowTD] = true;
-			Hitmarker[playerid][h_ShowTime] = GetTickCount() + 400;
+			Hitmarker[playerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;
 			Hitmarker[playerid][h_WeaponIDDamage] = weaponid;
 			Hitmarker[playerid][h_Bodypart] = -1;
 			Hitmarker[playerid][h_SpecialAction] = GetPlayerSpecialAction(playerid);
@@ -405,6 +601,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		{
 			if(Hitmarker[playerid][h_HitTypeID] != hittype && Hitmarker[playerid][h_HitType][hittype] == true && (hittype == BULLET_HIT_TYPE_VEHICLE || hittype == BULLET_HIT_TYPE_PLAYER))
 			{
+				// * Обновляем цвет хитмаркера, если изменился hittype
 				Hitmarker[playerid][h_Bodypart] = -1;
 				Hitmarker[playerid][h_HitTypeID] = hittype;
 
@@ -415,9 +612,11 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			}
 			else if(Hitmarker[playerid][h_HitTypeID] == hittype && hittype == BULLET_HIT_TYPE_VEHICLE && Hitmarker[playerid][h_HitType][BULLET_HIT_TYPE_VEHICLE] == true) 
 			{
-				Hitmarker[playerid][h_ShowTime] = GetTickCount() + 400;
+				Hitmarker[playerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;//таймер скрытия TextDraw
 				if(Hitmarker[playerid][h_ColorTD] != Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE])
 				{
+					// * если стрелять в край руки персонажа, и плавно переводить прицел в сторону машины, цвет хитмаркера не будет меняться.
+					// * проблема в том что, пуля проходит сквозь персонажа и попадает в транспорт. OnPlayerWeaponShot вызывается раньше чем OnPlayerTakeDamage, и тем самым меняет цвет хитмаркера.
 					Hitmarker[playerid][h_ColorTD] = Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE];
 					PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE]);
 					PlayerTextDrawShow(playerid, Hitmarker[playerid][h_HitTD]);
@@ -438,22 +637,31 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			}
 		}
 	}
-    #if defined OnPlayerWeaponShot_Hitmarker
-        OnPlayerWeaponShot_Hitmarker(playerid, weaponid, hittype, hitid, fX, fY, fZ);
-    #endif
-    return 1;
+    #if !defined _inc_y_hooks && !defined _INC_y_hooks && defined OnPlayerWeaponShot_Hitmarker
+		return OnPlayerWeaponShot_Hitmarker(playerid, weaponid, hittype, hitid, fX, fY, fZ);
+	#else
+		return 1;
+	#endif
 }
-#if defined _ALS_OnPlayerWeaponShot
-    #undef OnPlayerWeaponShot
-#else
-    #define _ALS_OnPlayerWeaponShot
-#endif
-#define OnPlayerWeaponShot OnPlayerWeaponShot_Hitmarker
-#if defined OnPlayerWeaponShot_Hitmarker
-    forward OnPlayerWeaponShot_Hitmarker(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+#if !defined _inc_y_hooks && !defined _INC_y_hooks
+	#if defined _ALS_OnPlayerWeaponShot
+		#undef OnPlayerWeaponShot
+	#else
+		#define _ALS_OnPlayerWeaponShot
+	#endif
+	#define OnPlayerWeaponShot OnPlayerWeaponShot_Hitmarker
+	#if defined OnPlayerWeaponShot_Hitmarker
+		forward OnPlayerWeaponShot_Hitmarker(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+	#endif
 #endif
 
-public OnPlayerConnect(playerid)
+
+
+#if defined _inc_y_hooks || defined _INC_y_hooks
+	hook OnPlayerConnect(playerid)
+#else
+	public OnPlayerConnect(playerid)
+#endif
 {
     Hitmarker[playerid] = NULL_Hitmarker;
 	Hitmarker[playerid][h_CrosshairTD_X] = 332.5;
@@ -466,35 +674,48 @@ public OnPlayerConnect(playerid)
 	Hitmarker[playerid][h_CenterCrosshairTD_SizeX] = 0.46; 
 	Hitmarker[playerid][h_CenterCrosshairTD_SizeY] = 1.0;
 
-    #if defined OnPlayerConnect_Hitmarker
-        OnPlayerConnect_Hitmarker(playerid);
-    #endif
-    return 1;
+    #if !defined _inc_y_hooks && !defined _INC_y_hooks && defined OnPlayerConnect_Hitmarker
+		return OnPlayerConnect_Hitmarker(playerid);
+	#else
+		return 1;
+	#endif
 }
-#if defined _ALS_OnPlayerConnect
-    #undef OnPlayerConnect
-#else
-    #define _ALS_OnPlayerConnect
-#endif
-#define OnPlayerConnect OnPlayerConnect_Hitmarker
-#if defined OnPlayerConnect_Hitmarker
-    forward OnPlayerConnect_Hitmarker(playerid);
+#if !defined _inc_y_hooks && !defined _INC_y_hooks
+	#if defined _ALS_OnPlayerConnect
+		#undef OnPlayerConnect
+	#else
+		#define _ALS_OnPlayerConnect
+	#endif
+	#define OnPlayerConnect OnPlayerConnect_Hitmarker
+	#if defined OnPlayerConnect_Hitmarker
+		forward OnPlayerConnect_Hitmarker(playerid);
+	#endif
 #endif
 
-public OnPlayerDisconnect(playerid, reason)
+
+
+#if defined _inc_y_hooks || defined _INC_y_hooks
+	hook OnPlayerDisconnect(playerid, reason)
+#else
+	public OnPlayerDisconnect(playerid, reason)
+#endif
 {
     if(Hitmarker[playerid][h_Enabled] == true) HitmarkerDisable(playerid);
-    #if defined OnPlayerDisconnect_Hitmarker
-        OnPlayerDisconnect_Hitmarker(playerid, reason);
-    #endif
-    return 1;
+
+    #if !defined _inc_y_hooks && !defined _INC_y_hooks && defined OnPlayerDisconnect_Hitmarker
+		return OnPlayerDisconnect_Hitmarker(playerid, reason);
+	#else
+		return 1;
+	#endif
 }
-#if defined _ALS_OnPlayerDisconnect
-    #undef OnPlayerDisconnect
-#else
-    #define _ALS_OnPlayerDisconnect
-#endif
-#define OnPlayerDisconnect OnPlayerDisconnect_Hitmarker
-#if defined OnPlayerDisconnect_Hitmarker
-    forward OnPlayerDisconnect_Hitmarker(playerid, reason);
+#if !defined _inc_y_hooks && !defined _INC_y_hooks
+	#if defined _ALS_OnPlayerDisconnect
+		#undef OnPlayerDisconnect
+	#else
+		#define _ALS_OnPlayerDisconnect
+	#endif
+	#define OnPlayerDisconnect OnPlayerDisconnect_Hitmarker
+	#if defined OnPlayerDisconnect_Hitmarker
+		forward OnPlayerDisconnect_Hitmarker(playerid, reason);
+	#endif
 #endif
