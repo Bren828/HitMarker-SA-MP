@@ -2,7 +2,7 @@
 
 A hitmarker is the little x that pops up in your crosshairs when one of your bullets hits someone.
 
-![Crosshair](https://i.imgur.com/COt21M4.png)
+![Crosshair](https://raw.githubusercontent.com/Bren828/HitMarker-SA-MP/main/preview.png)
 
 ## Main features
 * Изменение цвета хитмаркера при попадании в разные части тела игрока, транспорта, и при полном убийстве игрока.
