@@ -86,19 +86,19 @@ CMD:Hitmarker(playerid)
 #### HitmarkerColor(playerid, type, color)
 > Change hitmarker color
 > * `playerid` - The ID of the player
-> * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP/wiki/Color-change)
+> * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP#editing-color-change)
 > * `color` - The color to set. Supports alpha values.
 
 #### GetHitmarkerColor(playerid, type)
 > Узнать текущий цвет хитмаркера
 > * `playerid` - The ID of the player
-> * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP/wiki/Color-change)
+> * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP#editing-color-change)
 > * Returns the color
 
 #### HitmarkerDisableWeapon(playerid, weaponid, bool:disable)
 > Disable the hitmarker for a specific weapon
 > * `playerid` - The ID of the player
-> * `weaponid` - [Weapon IDs](https://github.com/Bren828/HitMarker-SA-MP/wiki/disabling-weapons)
+> * `weaponid` - [Weapon IDs](https://github.com/Bren828/HitMarker-SA-MP#editing-disabling-weapons)
 > * `disable` - `true` to disable / `false` to enable
 > * **При отключении огневого оружия, отключается оружие (ID: 18, 37)**
 > * **При отключении взрывного оружия, отключается оружие (ID: 16, 35, 36, 39, 51) Не распространяется на воздушный транспорт.**
@@ -106,7 +106,7 @@ CMD:Hitmarker(playerid)
 #### GetHitmarkerDisabledWeapon(playerid, weaponid)
 > Get hitmarker status for a certain weapon
 > * `playerid` - The ID of the player
-> * `weaponid` - [Weapon IDs](https://github.com/Bren828/HitMarker-SA-MP/wiki/disabling-weapons)
+> * `weaponid` - [Weapon IDs](https://github.com/Bren828/HitMarker-SA-MP#editing-disabling-weapons)
 > * Return (true) if disabled or (false) if enabled
 
 #### HitmarkerSoundDamage(playerid, soundid)
@@ -122,7 +122,7 @@ CMD:Hitmarker(playerid)
 #### HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y)
 > Set the marker position
 > * `playerid` - The ID of the player
-> * `crosshair_type` - [Position determination](https://github.com/Bren828/HitMarker-SA-MP/wiki/Change-position)
+> * `crosshair_type` - [Position determination](https://github.com/Bren828/HitMarker-SA-MP#change-position)
 > * `Float:x` - The X (left/right) coordinate to create the textdraw at.
 > * `Float:y` - The Y (up/down) coordinate to create the textdraw at.
 > * `Float:size_x` - Width
@@ -131,7 +131,7 @@ CMD:Hitmarker(playerid)
 #### GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y)
 > Get current hitmarker position
 > * `playerid` - The ID of the player
-> * `crosshair_type` - [Position determination](https://github.com/Bren828/HitMarker-SA-MP/wiki/Change-position)
+> * `crosshair_type` - [Position determination](https://github.com/Bren828/HitMarker-SA-MP#change-position)
 > * `&Float:x` - The X (left/right) coordinate
 > * `&Float:y` - The Y (up/down) coordinate
 > * `&Float:size_x` - Width
@@ -204,8 +204,8 @@ HitmarkerDisableWeapon(playerid, HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN, true);
 
 | Definition    | ID | Notes |
 | --------------|:--:|-------|
-| HITMARKER_STANDARD_CROSSHAIR | 0 | Set standard position<br />**Используется для огнестрельного оружия (ID: 22 - 33, 37 - 38)** |
-| HITMARKER_CENTRE_CROSSHAIR | 1 | Set the center position<br />**Используется для холодного оружия включая транспорт и при попадании в голову** | 
+| HITMARKER_STANDARD_CROSSHAIR | 0 | Set standard position<br />**Used for firearms (ID: 22 - 33, 37 - 38)** |
+| HITMARKER_CENTRE_CROSSHAIR | 1 | Set the center position<br />**Used for melee weapons and vehicles** | 
 
 #### Usage
 ```pawn
