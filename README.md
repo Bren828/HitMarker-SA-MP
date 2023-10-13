@@ -11,7 +11,6 @@ A hitmarker is the little x that pops up in your crosshairs when one of your bul
 * Setting the position and size of the hitmarker.
 
 ## Reference
-* [Download](https://github.com/Bren828/HitMarker-SA-MP#download)
 * [Installation](https://github.com/Bren828/HitMarker-SA-MP#installation)
 * [Example](https://github.com/Bren828/HitMarker-SA-MP#example)
 * [Functions](https://github.com/Bren828/HitMarker-SA-MP#functions)
@@ -19,9 +18,6 @@ A hitmarker is the little x that pops up in your crosshairs when one of your bul
   * [Editing Color change](https://github.com/Bren828/HitMarker-SA-MP#editing-color-change)
   * [Editing Disabling weapons](https://github.com/Bren828/HitMarker-SA-MP#editing-disabling-weapons)
   * [Change position](https://github.com/Bren828/HitMarker-SA-MP#change-position)
-
-## Download
-[Releases page](https://github.com/Bren828/HitMarker-SA-MP/releases)
 
 ## Installation
 
