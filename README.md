@@ -79,18 +79,18 @@ CMD:Hitmarker(playerid)
 > * `playerid` - The ID of the player
   
 #### bool:HitmarkerStatus(playerid)
-> Check hitmarker status
+> Get hitmarker status
 > * `playerid` - The ID of the player
 > * Return (true) if enabled or (false) if disabled
   
 #### HitmarkerColor(playerid, type, color)
-> Change hitmarker color
+> Set hitmarker color
 > * `playerid` - The ID of the player
 > * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP#editing-color-change)
 > * `color` - The color to set. Supports alpha values.
 
 #### GetHitmarkerColor(playerid, type)
-> Узнать текущий цвет хитмаркера
+> Get hitmarker color
 > * `playerid` - The ID of the player
 > * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP#editing-color-change)
 > * Returns the color
