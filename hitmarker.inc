@@ -8,7 +8,7 @@
 *	Creater - @Bren828 					
 *									16 March 2023
 *
-*   Version: 1.1
+*   Version: 1.11
 *
 *   ---------------------------------------------------
 *
@@ -17,115 +17,115 @@
 *
 *
 *
-* Включить Hitmarker
+* Р’РєР»СЋС‡РёС‚СЊ Hitmarker
 *       HitmarkerEnabled(playerid);
-*       * playerid: ID игрока
+*       * playerid: ID РёРіСЂРѕРєР°
 *	
 *	
-* Выключить Hitmarker
+* Р’С‹РєР»СЋС‡РёС‚СЊ Hitmarker
 *      	HitmarkerDisable(playerid);
-*       * playerid: ID игрока
+*       * playerid: ID РёРіСЂРѕРєР°
 *	
 *	
-* Узнать статус хитмаркера
+* РЈР·РЅР°С‚СЊ СЃС‚Р°С‚СѓСЃ С…РёС‚РјР°СЂРєРµСЂР°
 *      	bool:HitmarkerStatus(playerid);
-*       * playerid: ID игрока
+*       * playerid: ID РёРіСЂРѕРєР°
 *	
-*      	Вернет: false если выключен / true если включен
+*      	Р’РµСЂРЅРµС‚: false РµСЃР»Рё РІС‹РєР»СЋС‡РµРЅ / true РµСЃР»Рё РІРєР»СЋС‡РµРЅ
 *	
 *	
-* Изменить цвет хитмаркера
+* РР·РјРµРЅРёС‚СЊ С†РІРµС‚ С…РёС‚РјР°СЂРєРµСЂР°
 *      	HitmarkerColor(playerid, type, color);
-* 		* playerid: id игрока
-*		* type: тип цвета
-*		* color: цвет
+* 		* playerid: id РёРіСЂРѕРєР°
+*		* type: С‚РёРї С†РІРµС‚Р°
+*		* color: С†РІРµС‚
 *	
 *	
-* Узнать текущий цвет хитмаркера
+* РЈР·РЅР°С‚СЊ С‚РµРєСѓС‰РёР№ С†РІРµС‚ С…РёС‚РјР°СЂРєРµСЂР°
 *       GetHitmarkerColor(playerid, type);
-* 		* playerid: id игрока
-*		* type: тип цвета
+* 		* playerid: id РёРіСЂРѕРєР°
+*		* type: С‚РёРї С†РІРµС‚Р°
 *	
-*	    Вернет: id цвета
+*	    Р’РµСЂРЅРµС‚: id С†РІРµС‚Р°
 *	
 *	
-* Выключить хитмаркер для определенного оружия
+* Р’С‹РєР»СЋС‡РёС‚СЊ С…РёС‚РјР°СЂРєРµСЂ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ РѕСЂСѓР¶РёСЏ
 *      	HitmarkerDisableWeapon(playerid, weaponid, bool:disable);
-* 		* playerid: id игрока
-*		* weaponid: id оружия
-*		* bool:disable: true для отключения / false для включения
+* 		* playerid: id РёРіСЂРѕРєР°
+*		* weaponid: id РѕСЂСѓР¶РёСЏ
+*		* bool:disable: true РґР»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ / false РґР»СЏ РІРєР»СЋС‡РµРЅРёСЏ
 *	
-*      	* ПРИМЕЧАНИЕ: При отключении огневого оружия, отключается оружие (ID: 18, 37)
-*      	* ПРИМЕЧАНИЕ: При отключении взрывного оружия, отключается оружие (ID: 16, 35, 36, 39, 51) Не распространяется на воздушный транспорт.
+*      	* РџР РРњР•Р§РђРќРР•: РџСЂРё РѕС‚РєР»СЋС‡РµРЅРёРё РѕРіРЅРµРІРѕРіРѕ РѕСЂСѓР¶РёСЏ, РѕС‚РєР»СЋС‡Р°РµС‚СЃСЏ РѕСЂСѓР¶РёРµ (ID: 18, 37)
+*      	* РџР РРњР•Р§РђРќРР•: РџСЂРё РѕС‚РєР»СЋС‡РµРЅРёРё РІР·СЂС‹РІРЅРѕРіРѕ РѕСЂСѓР¶РёСЏ, РѕС‚РєР»СЋС‡Р°РµС‚СЃСЏ РѕСЂСѓР¶РёРµ (ID: 16, 35, 36, 39, 51) РќРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµС‚СЃСЏ РЅР° РІРѕР·РґСѓС€РЅС‹Р№ С‚СЂР°РЅСЃРїРѕСЂС‚.
 *	
 *	
-* Узнать статус хитмаркера у определенного оружия
+* РЈР·РЅР°С‚СЊ СЃС‚Р°С‚СѓСЃ С…РёС‚РјР°СЂРєРµСЂР° Сѓ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ РѕСЂСѓР¶РёСЏ
 *      	GetHitmarkerDisabledWeapon(playerid, weaponid);
-* 		* playerid: id игрока
-*		* weaponid: id оружия
+* 		* playerid: id РёРіСЂРѕРєР°
+*		* weaponid: id РѕСЂСѓР¶РёСЏ
 *	
-*		* Вернет: true если отключено / false если включено
+*		* Р’РµСЂРЅРµС‚: true РµСЃР»Рё РѕС‚РєР»СЋС‡РµРЅРѕ / false РµСЃР»Рё РІРєР»СЋС‡РµРЅРѕ
 *	
 *	
-* Включить звук попадания
+* Р’РєР»СЋС‡РёС‚СЊ Р·РІСѓРє РїРѕРїР°РґР°РЅРёСЏ
 *      	HitmarkerSoundDamage(playerid, soundid);
-* 		* playerid: id игрока
-* 		* soundid: идентификатор звука
+* 		* playerid: id РёРіСЂРѕРєР°
+* 		* soundid: РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р·РІСѓРєР°
 *	
 *	
-* Узнать текущий звук попадания
+* РЈР·РЅР°С‚СЊ С‚РµРєСѓС‰РёР№ Р·РІСѓРє РїРѕРїР°РґР°РЅРёСЏ
 *      	GetHitmarkerSoundDamage(playerid);
-* 		* playerid: id игрока
+* 		* playerid: id РёРіСЂРѕРєР°
 *	
-*		* Вернет: идентификатор звука
+*		* Р’РµСЂРЅРµС‚: РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р·РІСѓРєР°
 *	
 *	
-* Изменить положение хитмаркера 
+* РР·РјРµРЅРёС‚СЊ РїРѕР»РѕР¶РµРЅРёРµ С…РёС‚РјР°СЂРєРµСЂР° 
 *      	HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y);
-* 		* playerid: id игрока
-* 		* crosshair_type: тип перекрестия
-* 		* Float:x: Координата X (левая/правая)
-* 		* Float:y: Координата Y (вверх/вниз)
-* 		* Float:size_x: Ширина
-* 		* Float:size_y: Высота
+* 		* playerid: id РёРіСЂРѕРєР°
+* 		* crosshair_type: С‚РёРї РїРµСЂРµРєСЂРµСЃС‚РёСЏ
+* 		* Float:x: РљРѕРѕСЂРґРёРЅР°С‚Р° X (Р»РµРІР°СЏ/РїСЂР°РІР°СЏ)
+* 		* Float:y: РљРѕРѕСЂРґРёРЅР°С‚Р° Y (РІРІРµСЂС…/РІРЅРёР·)
+* 		* Float:size_x: РЁРёСЂРёРЅР°
+* 		* Float:size_y: Р’С‹СЃРѕС‚Р°
 *	
 *	
-* Узнать текущие положение хитмаркера 
+* РЈР·РЅР°С‚СЊ С‚РµРєСѓС‰РёРµ РїРѕР»РѕР¶РµРЅРёРµ С…РёС‚РјР°СЂРєРµСЂР° 
 *      	GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y);
-* 		* playerid: id игрока
-* 		* crosshair_type: тип перекрестия
-* 		* &Float:x: Координата X (левая/правая)
-* 		* &Float:y: Координата Y (вверх/вниз)
-* 		* &Float:size_x: Ширина
-* 		* &Float:size_y: Высота
+* 		* playerid: id РёРіСЂРѕРєР°
+* 		* crosshair_type: С‚РёРї РїРµСЂРµРєСЂРµСЃС‚РёСЏ
+* 		* &Float:x: РљРѕРѕСЂРґРёРЅР°С‚Р° X (Р»РµРІР°СЏ/РїСЂР°РІР°СЏ)
+* 		* &Float:y: РљРѕРѕСЂРґРёРЅР°С‚Р° Y (РІРІРµСЂС…/РІРЅРёР·)
+* 		* &Float:size_x: РЁРёСЂРёРЅР°
+* 		* &Float:size_y: Р’С‹СЃРѕС‚Р°
 *	
 *	
-* Включить индикацию урона по игроку
+* Р’РєР»СЋС‡РёС‚СЊ РёРЅРґРёРєР°С†РёСЋ СѓСЂРѕРЅР° РїРѕ РёРіСЂРѕРєСѓ
 *      	HitmarkerEnablePlayerDamage(playerid, bool:enable);
-* 		* playerid: id игрока
-* 		* bool:enable: true для включения / false для отключения
+* 		* playerid: id РёРіСЂРѕРєР°
+* 		* bool:enable: true РґР»СЏ РІРєР»СЋС‡РµРЅРёСЏ / false РґР»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ
 *	
-*	   	* ПРИМЕЧАНИЕ: По стандарту включено
+*	   	* РџР РРњР•Р§РђРќРР•: РџРѕ СЃС‚Р°РЅРґР°СЂС‚Сѓ РІРєР»СЋС‡РµРЅРѕ
 *	
 *	
-* Узнать статус индикации урона по игроку
+* РЈР·РЅР°С‚СЊ СЃС‚Р°С‚СѓСЃ РёРЅРґРёРєР°С†РёРё СѓСЂРѕРЅР° РїРѕ РёРіСЂРѕРєСѓ
 *      	GetHitmarkerEnablePlayerDamage(playerid);
-* 		* playerid: id игрока
+* 		* playerid: id РёРіСЂРѕРєР°
 *	
-*	    * Вернет: true если включено / false если отключено
+*	    * Р’РµСЂРЅРµС‚: true РµСЃР»Рё РІРєР»СЋС‡РµРЅРѕ / false РµСЃР»Рё РѕС‚РєР»СЋС‡РµРЅРѕ
 *	
 *	
-* Включить индикацию урона по транспорту
+* Р’РєР»СЋС‡РёС‚СЊ РёРЅРґРёРєР°С†РёСЋ СѓСЂРѕРЅР° РїРѕ С‚СЂР°РЅСЃРїРѕСЂС‚Сѓ
 *      	HitmarkerEnableVehicleDamage(playerid, bool:enable);
-* 		* playerid: id игрока
-* 		* bool:enable: true для включения / false для отключения
+* 		* playerid: id РёРіСЂРѕРєР°
+* 		* bool:enable: true РґР»СЏ РІРєР»СЋС‡РµРЅРёСЏ / false РґР»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ
 *	
 *	
-* Узнать статус индикации урона по транспорту
+* РЈР·РЅР°С‚СЊ СЃС‚Р°С‚СѓСЃ РёРЅРґРёРєР°С†РёРё СѓСЂРѕРЅР° РїРѕ С‚СЂР°РЅСЃРїРѕСЂС‚Сѓ
 *      	GetHitmarkerEnableVehicleDamage(playerid);
-* 		* playerid: id игрока
+* 		* playerid: id РёРіСЂРѕРєР°
 *	
-* 		* Вернет: true если включено / false если отключено
+* 		* Р’РµСЂРЅРµС‚: true РµСЃР»Рё РІРєР»СЋС‡РµРЅРѕ / false РµСЃР»Рё РѕС‚РєР»СЋС‡РµРЅРѕ
 *	
 *	
 *	/////////////
@@ -135,12 +135,12 @@
 *	
 *	CMD:hitmarker(playerid)
 *	{
-*		if(HitmarkerStatus(playerid) == false) // Узнаем состояние хитмаркера
+*		if(HitmarkerStatus(playerid) == false) // РЈР·РЅР°РµРј СЃРѕСЃС‚РѕСЏРЅРёРµ С…РёС‚РјР°СЂРєРµСЂР°
 *		{
-*			// Включаем хитмаркер
+*			// Р’РєР»СЋС‡Р°РµРј С…РёС‚РјР°СЂРєРµСЂ
 *			HitmarkerEnabled(playerid);
 *	
-*			// Устанавливаем нужные цвета попадания
+*			// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅСѓР¶РЅС‹Рµ С†РІРµС‚Р° РїРѕРїР°РґР°РЅРёСЏ
 *			HitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 		0xFFFFFFFF);
 *			HitmarkerColor(playerid, HITMARKER_BODYPART_GROIN, 		0x7CFC00FF);
 *			HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_ARM, 	0xFFA500FF);
@@ -152,20 +152,20 @@
 *			HitmarkerColor(playerid, HITMARKER_KILLSHOTS, 			0xFF0000FF);
 *			HitmarkerColor(playerid, HITMARKER_VEHICLE_DAMAGE, 		0xB03060FF);
 *	
-*			// Включаем индикацию урона по транспорту
+*			// Р’РєР»СЋС‡Р°РµРј РёРЅРґРёРєР°С†РёСЋ СѓСЂРѕРЅР° РїРѕ С‚СЂР°РЅСЃРїРѕСЂС‚Сѓ
 *			HitmarkerEnableVehicleDamage(playerid, true);
 *	
-*			// Отключаем индикацию урона оружием (ID: 5) - Бейсбольная бита
+*			// РћС‚РєР»СЋС‡Р°РµРј РёРЅРґРёРєР°С†РёСЋ СѓСЂРѕРЅР° РѕСЂСѓР¶РёРµРј (ID: 5) - Р‘РµР№СЃР±РѕР»СЊРЅР°СЏ Р±РёС‚Р°
 *			HitmarkerDisableWeapon(playerid, WEAPON_BAT, true);
 *	
-*			// Отключаем индикацию урона наносимого воздушным транспортом при помощи пулемета
+*			// РћС‚РєР»СЋС‡Р°РµРј РёРЅРґРёРєР°С†РёСЋ СѓСЂРѕРЅР° РЅР°РЅРѕСЃРёРјРѕРіРѕ РІРѕР·РґСѓС€РЅС‹Рј С‚СЂР°РЅСЃРїРѕСЂС‚РѕРј РїСЂРё РїРѕРјРѕС‰Рё РїСѓР»РµРјРµС‚Р°
 *			HitmarkerDisableWeapon(playerid, HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN, true);
 *	
 *			GameTextForPlayer(playerid, "Hitmarker ~g~~h~On", 1200, 4);
 *		}
 *		else 
 *		{
-*			// Выключаем хитмаркер
+*			// Р’С‹РєР»СЋС‡Р°РµРј С…РёС‚РјР°СЂРєРµСЂ
 *			HitmarkerDisable(playerid);
 *			GameTextForPlayer(playerid, "Hitmarker ~r~~h~Off", 1200, 4);
 *		}
@@ -181,27 +181,27 @@
 #define _hitmarker_included
 
 #if !defined HITMARKER_SHOW_TIME
-	#define HITMARKER_SHOW_TIME  	            400 // время отображение хитмаркера на экране в миллисекундах
+	#define HITMARKER_SHOW_TIME  	            400 // РІСЂРµРјСЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ С…РёС‚РјР°СЂРєРµСЂР° РЅР° СЌРєСЂР°РЅРµ РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С…
 #endif
 
-#define HITMARKER_KILLSHOTS						0 // при полном убийстве игрока
-#define HITMARKER_VEHICLE_DAMAGE				1 // при попадании по транспорту 
-#define HITMARKER_BODYPART_TORSO 				3 // при попадании по торсу
-#define HITMARKER_BODYPART_GROIN 				4 // при попадании по паху
-#define HITMARKER_BODYPART_LEFT_ARM 			5 // при попадании по левой руке
-#define HITMARKER_BODYPART_RIGHT_ARM 			6 // при попадании по правой руке
-#define HITMARKER_BODYPART_LEFT_LEG 			7 // при попадании по левой ноге 
-#define HITMARKER_BODYPART_RIGHT_LEG 			8 // при попадании по правой ноге
-#define HITMARKER_BODYPART_HEAD 				9 // при попадании в голову
+#define HITMARKER_KILLSHOTS						0 // РїСЂРё РїРѕР»РЅРѕРј СѓР±РёР№СЃС‚РІРµ РёРіСЂРѕРєР°
+#define HITMARKER_VEHICLE_DAMAGE				1 // РїСЂРё РїРѕРїР°РґР°РЅРёРё РїРѕ С‚СЂР°РЅСЃРїРѕСЂС‚Сѓ 
+#define HITMARKER_BODYPART_TORSO 				3 // РїСЂРё РїРѕРїР°РґР°РЅРёРё РїРѕ С‚РѕСЂСЃСѓ
+#define HITMARKER_BODYPART_GROIN 				4 // РїСЂРё РїРѕРїР°РґР°РЅРёРё РїРѕ РїР°С…Сѓ
+#define HITMARKER_BODYPART_LEFT_ARM 			5 // РїСЂРё РїРѕРїР°РґР°РЅРёРё РїРѕ Р»РµРІРѕР№ СЂСѓРєРµ
+#define HITMARKER_BODYPART_RIGHT_ARM 			6 // РїСЂРё РїРѕРїР°РґР°РЅРёРё РїРѕ РїСЂР°РІРѕР№ СЂСѓРєРµ
+#define HITMARKER_BODYPART_LEFT_LEG 			7 // РїСЂРё РїРѕРїР°РґР°РЅРёРё РїРѕ Р»РµРІРѕР№ РЅРѕРіРµ 
+#define HITMARKER_BODYPART_RIGHT_LEG 			8 // РїСЂРё РїРѕРїР°РґР°РЅРёРё РїРѕ РїСЂР°РІРѕР№ РЅРѕРіРµ
+#define HITMARKER_BODYPART_HEAD 				9 // РїСЂРё РїРѕРїР°РґР°РЅРёРё РІ РіРѕР»РѕРІСѓ
 
-#define HITMARKER_WEAPON_FIST					0 // урон получен кулаком
-#define HITMARKER_DEATH_UNDER_VEHICLE			50 // игрок умер под транспортом или от винтов вертолета
-#define HITMARKER_ALL_EXPLOSION					51 // игрок умер от взрыва
-#define HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN	52 // игрок умер от спец оружие воздушного транспорта пулемет
-#define HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS	53 // игрок умер от спец оружие воздушного транспорта ракета
+#define HITMARKER_WEAPON_FIST					0 // СѓСЂРѕРЅ РїРѕР»СѓС‡РµРЅ РєСѓР»Р°РєРѕРј
+#define HITMARKER_DEATH_UNDER_VEHICLE			50 // РёРіСЂРѕРє СѓРјРµСЂ РїРѕРґ С‚СЂР°РЅСЃРїРѕСЂС‚РѕРј РёР»Рё РѕС‚ РІРёРЅС‚РѕРІ РІРµСЂС‚РѕР»РµС‚Р°
+#define HITMARKER_ALL_EXPLOSION					51 // РёРіСЂРѕРє СѓРјРµСЂ РѕС‚ РІР·СЂС‹РІР°
+#define HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN	52 // РёРіСЂРѕРє СѓРјРµСЂ РѕС‚ СЃРїРµС† РѕСЂСѓР¶РёРµ РІРѕР·РґСѓС€РЅРѕРіРѕ С‚СЂР°РЅСЃРїРѕСЂС‚Р° РїСѓР»РµРјРµС‚
+#define HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS	53 // РёРіСЂРѕРє СѓРјРµСЂ РѕС‚ СЃРїРµС† РѕСЂСѓР¶РёРµ РІРѕР·РґСѓС€РЅРѕРіРѕ С‚СЂР°РЅСЃРїРѕСЂС‚Р° СЂР°РєРµС‚Р°
 
-#define HITMARKER_STANDARD_CROSSHAIR 			0 // изменение положение стандартного прицела
-#define HITMARKER_CENTRE_CROSSHAIR 				1 // изменение положение прицела по центру
+#define HITMARKER_STANDARD_CROSSHAIR 			0 // РёР·РјРµРЅРµРЅРёРµ РїРѕР»РѕР¶РµРЅРёРµ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ РїСЂРёС†РµР»Р°
+#define HITMARKER_CENTRE_CROSSHAIR 				1 // РёР·РјРµРЅРµРЅРёРµ РїРѕР»РѕР¶РµРЅРёРµ РїСЂРёС†РµР»Р° РїРѕ С†РµРЅС‚СЂСѓ
 
 
 enum HITMARKER_EN
@@ -280,7 +280,7 @@ stock bool:HitmarkerStatus(playerid)
 
 stock HitmarkerColor(playerid, type, color)
 {
-	if(Hitmarker[playerid][h_Enabled] == false || type < 0 || type >= 10 || type == 2) return 0;
+	if(type < 0 || type >= 10 || type == 2) return 0;
 	Hitmarker[playerid][h_ColorBodyParts][type] = color;
 	return 1;
 }
@@ -534,7 +534,7 @@ public _HitmarkerTimer(playerid)
 {
     if(killerid != INVALID_PLAYER_ID && Hitmarker[killerid][h_Enabled] == true)
 	{/*
-		* Если игрок убил другого игрока, меняем ему цвет хитмаркера */
+		* Р•СЃР»Рё РёРіСЂРѕРє СѓР±РёР» РґСЂСѓРіРѕРіРѕ РёРіСЂРѕРєР°, РјРµРЅСЏРµРј РµРјСѓ С†РІРµС‚ С…РёС‚РјР°СЂРєРµСЂР° */
 		Hitmarker[killerid][h_ShowTD] = true;
 		Hitmarker[killerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;
 		Hitmarker[killerid][h_Bodypart] = -1;
@@ -546,7 +546,7 @@ public _HitmarkerTimer(playerid)
 	}
 	if(Hitmarker[playerid][h_Enabled] == true && Hitmarker[playerid][h_ShowTD] == true)
 	{/* 
-		* Игрок который наносил урон умер. Скрываем ему хитмаркер */
+		* РРіСЂРѕРє РєРѕС‚РѕСЂС‹Р№ РЅР°РЅРѕСЃРёР» СѓСЂРѕРЅ СѓРјРµСЂ. РЎРєСЂС‹РІР°РµРј РµРјСѓ С…РёС‚РјР°СЂРєРµСЂ */
 		Hitmarker[playerid][h_ShowTD] = false;
 		Hitmarker[playerid][h_ShowTime] = 0;
 		Hitmarker[playerid][h_Bodypart] = -1;
@@ -595,33 +595,30 @@ public _HitmarkerTimer(playerid)
 			Hitmarker[playerid][h_ModeCamera] = carmode;
 			Hitmarker[playerid][h_ColorTD] = ((hittype == BULLET_HIT_TYPE_PLAYER) ? (-1) : (Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE]));
 			_HitmarkerShowTD(playerid, weaponid);
-			return 1;
 	    }
 		else if(Hitmarker[playerid][h_ShowTD] == true)
 		{
 			if(Hitmarker[playerid][h_HitTypeID] != hittype && Hitmarker[playerid][h_HitType][hittype] == true && (hittype == BULLET_HIT_TYPE_VEHICLE || hittype == BULLET_HIT_TYPE_PLAYER))
 			{
-				// * Обновляем цвет хитмаркера, если изменился hittype
+				// * РћР±РЅРѕРІР»СЏРµРј С†РІРµС‚ С…РёС‚РјР°СЂРєРµСЂР°, РµСЃР»Рё РёР·РјРµРЅРёР»СЃСЏ hittype
 				Hitmarker[playerid][h_Bodypart] = -1;
 				Hitmarker[playerid][h_HitTypeID] = hittype;
 
 				Hitmarker[playerid][h_ColorTD] = ((hittype == BULLET_HIT_TYPE_PLAYER) ? (-1) : (Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE]));
 				PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], ((hittype == BULLET_HIT_TYPE_PLAYER) ? (-1) : (Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE])) );
 				PlayerTextDrawShow(playerid, Hitmarker[playerid][h_HitTD]);
-				return 1;
 			}
 			else if(Hitmarker[playerid][h_HitTypeID] == hittype && hittype == BULLET_HIT_TYPE_VEHICLE && Hitmarker[playerid][h_HitType][BULLET_HIT_TYPE_VEHICLE] == true) 
 			{
-				Hitmarker[playerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;//таймер скрытия TextDraw
+				Hitmarker[playerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;//С‚Р°Р№РјРµСЂ СЃРєСЂС‹С‚РёСЏ TextDraw
 				if(Hitmarker[playerid][h_ColorTD] != Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE])
 				{
-					// * если стрелять в край руки персонажа, и плавно переводить прицел в сторону машины, цвет хитмаркера не будет меняться.
-					// * проблема в том что, пуля проходит сквозь персонажа и попадает в транспорт. OnPlayerWeaponShot вызывается раньше чем OnPlayerTakeDamage, и тем самым меняет цвет хитмаркера.
+					// * РµСЃР»Рё СЃС‚СЂРµР»СЏС‚СЊ РІ РєСЂР°Р№ СЂСѓРєРё РїРµСЂСЃРѕРЅР°Р¶Р°, Рё РїР»Р°РІРЅРѕ РїРµСЂРµРІРѕРґРёС‚СЊ РїСЂРёС†РµР» РІ СЃС‚РѕСЂРѕРЅСѓ РјР°С€РёРЅС‹, С†РІРµС‚ С…РёС‚РјР°СЂРєРµСЂР° РЅРµ Р±СѓРґРµС‚ РјРµРЅСЏС‚СЊСЃСЏ.
+					// * РїСЂРѕР±Р»РµРјР° РІ С‚РѕРј С‡С‚Рѕ, РїСѓР»СЏ РїСЂРѕС…РѕРґРёС‚ СЃРєРІРѕР·СЊ РїРµСЂСЃРѕРЅР°Р¶Р° Рё РїРѕРїР°РґР°РµС‚ РІ С‚СЂР°РЅСЃРїРѕСЂС‚. OnPlayerWeaponShot РІС‹Р·С‹РІР°РµС‚СЃСЏ СЂР°РЅСЊС€Рµ С‡РµРј OnPlayerTakeDamage, Рё С‚РµРј СЃР°РјС‹Рј РјРµРЅСЏРµС‚ С†РІРµС‚ С…РёС‚РјР°СЂРєРµСЂР°.
 					Hitmarker[playerid][h_ColorTD] = Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE];
 					PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE]);
 					PlayerTextDrawShow(playerid, Hitmarker[playerid][h_HitTD]);
 				}
-				return 1;
 			}
 			else if(Hitmarker[playerid][h_HitTypeID] != hittype)
 			{
@@ -633,7 +630,6 @@ public _HitmarkerTimer(playerid)
 				Hitmarker[playerid][h_ModeCamera] = 0;
 				PlayerTextDrawHide(playerid, Hitmarker[playerid][h_HitTD]);
 				if(Hitmarker[playerid][h_SoundDamage] != 0) PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
-				return 1;
 			}
 		}
 	}
