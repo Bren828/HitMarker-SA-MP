@@ -6,9 +6,9 @@
 *   ---------------------------------------------------
 *
 *	Creater - @Bren828 					
-*									16 March 2023
+*									13 October 2023
 *
-*   Version: 1.11
+*   Version: 1.2
 *
 *   ---------------------------------------------------
 *
@@ -17,162 +17,112 @@
 *
 *
 *
-* Включить Hitmarker
+* Enable hitmarker
 *       HitmarkerEnabled(playerid);
-*       * playerid: ID игрока
+*       * playerid: The ID of the player
 *	
 *	
-* Выключить Hitmarker
+* Disable hitmarker
 *      	HitmarkerDisable(playerid);
-*       * playerid: ID игрока
+*       * playerid: The ID of the player
 *	
 *	
-* Узнать статус хитмаркера
+* Get hitmarker status
 *      	bool:HitmarkerStatus(playerid);
-*       * playerid: ID игрока
+*       * playerid: The ID of the player
 *	
-*      	Вернет: false если выключен / true если включен
+*      	Return (true) if enabled or (false) if disabled
 *	
 *	
-* Изменить цвет хитмаркера
+* Set hitmarker color
 *      	HitmarkerColor(playerid, type, color);
-* 		* playerid: id игрока
-*		* type: тип цвета
-*		* color: цвет
+* 		* playerid: The ID of the player
+*		* type: Color definition
+*		* color: The color to set. Supports alpha values.
 *	
 *	
-* Узнать текущий цвет хитмаркера
+* Get hitmarker color
 *       GetHitmarkerColor(playerid, type);
-* 		* playerid: id игрока
-*		* type: тип цвета
+* 		* playerid: The ID of the player
+*		* type: ��� �����
 *	
-*	    Вернет: id цвета
+*	    Returns the color
 *	
 *	
-* Выключить хитмаркер для определенного оружия
+* Disable the hitmarker for a specific weapon
 *      	HitmarkerDisableWeapon(playerid, weaponid, bool:disable);
-* 		* playerid: id игрока
-*		* weaponid: id оружия
-*		* bool:disable: true для отключения / false для включения
-*	
-*      	* ПРИМЕЧАНИЕ: При отключении огневого оружия, отключается оружие (ID: 18, 37)
-*      	* ПРИМЕЧАНИЕ: При отключении взрывного оружия, отключается оружие (ID: 16, 35, 36, 39, 51) Не распространяется на воздушный транспорт.
+* 		* playerid: The ID of the player
+*		* weaponid:  Weapon IDs
+*		* bool:disable: true to disable / false to enable
 *	
 *	
-* Узнать статус хитмаркера у определенного оружия
+*	
+* Get hitmarker status for a certain weapon
 *      	GetHitmarkerDisabledWeapon(playerid, weaponid);
-* 		* playerid: id игрока
-*		* weaponid: id оружия
+* 		* playerid: The ID of the player
+*		* weaponid: Weapon IDs
 *	
-*		* Вернет: true если отключено / false если включено
+*		* Return (true) if disabled or (false) if enabled
 *	
 *	
-* Включить звук попадания
+* Enable hit sound
 *      	HitmarkerSoundDamage(playerid, soundid);
-* 		* playerid: id игрока
-* 		* soundid: идентификатор звука
+* 		* playerid: The ID of the player
+* 		* soundid: Sound IDs
 *	
 *	
-* Узнать текущий звук попадания
+* Get hit sound
 *      	GetHitmarkerSoundDamage(playerid);
-* 		* playerid: id игрока
+* 		* playerid: The ID of the player
 *	
-*		* Вернет: идентификатор звука
+*		* Returns sound ID
 *	
 *	
-* Изменить положение хитмаркера 
+* Set the marker position
 *      	HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y);
-* 		* playerid: id игрока
-* 		* crosshair_type: тип перекрестия
-* 		* Float:x: Координата X (левая/правая)
-* 		* Float:y: Координата Y (вверх/вниз)
-* 		* Float:size_x: Ширина
-* 		* Float:size_y: Высота
+* 		* playerid: The ID of the player
+* 		* crosshair_type: Position determination
+* 		* Float:x: The X (left/right) coordinate to create the textdraw at.
+* 		* Float:y: The Y (up/down) coordinate to create the textdraw at.
+* 		* Float:size_x: Width
+* 		* Float:size_y: Height
 *	
 *	
-* Узнать текущие положение хитмаркера 
+* Get hitmarker position
 *      	GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y);
-* 		* playerid: id игрока
-* 		* crosshair_type: тип перекрестия
-* 		* &Float:x: Координата X (левая/правая)
-* 		* &Float:y: Координата Y (вверх/вниз)
-* 		* &Float:size_x: Ширина
-* 		* &Float:size_y: Высота
+* 		* playerid: The ID of the player
+* 		* crosshair_type: Position determination
+* 		* &Float:x: The X (left/right) coordinate
+* 		* &Float:y: The Y (up/down) coordinate
+* 		* &Float:size_x: Width
+* 		* &Float:size_y: Height
 *	
 *	
-* Включить индикацию урона по игроку
+* Enable player damage indication
 *      	HitmarkerEnablePlayerDamage(playerid, bool:enable);
-* 		* playerid: id игрока
-* 		* bool:enable: true для включения / false для отключения
-*	
-*	   	* ПРИМЕЧАНИЕ: По стандарту включено
+* 		* playerid: The ID of the player
+* 		* bool:enable: true to enable / false to disable
 *	
 *	
-* Узнать статус индикации урона по игроку
+* Get player damage status
 *      	GetHitmarkerEnablePlayerDamage(playerid);
-* 		* playerid: id игрока
+* 		* playerid: The ID of the player
 *	
-*	    * Вернет: true если включено / false если отключено
+*	    * Return (true) if enabled or (false) if disabled
 *	
 *	
-* Включить индикацию урона по транспорту
+* Enable vehicle damage indication
 *      	HitmarkerEnableVehicleDamage(playerid, bool:enable);
-* 		* playerid: id игрока
-* 		* bool:enable: true для включения / false для отключения
+* 		* playerid: The ID of the player
+* 		* bool:enable: enable - true to enable / false to disable
 *	
 *	
-* Узнать статус индикации урона по транспорту
+* Get vehicle damage status
 *      	GetHitmarkerEnableVehicleDamage(playerid);
-* 		* playerid: id игрока
+* 		* playerid: The ID of the player
 *	
-* 		* Вернет: true если включено / false если отключено
+* 		* ������: Return (true) if enabled or (false) if disabled
 *	
-*	
-*	/////////////
-*		Usage
-*	/////////////
-*	
-*	
-*	CMD:hitmarker(playerid)
-*	{
-*		if(HitmarkerStatus(playerid) == false) // Узнаем состояние хитмаркера
-*		{
-*			// Включаем хитмаркер
-*			HitmarkerEnabled(playerid);
-*	
-*			// Устанавливаем нужные цвета попадания
-*			HitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 		0xFFFFFFFF);
-*			HitmarkerColor(playerid, HITMARKER_BODYPART_GROIN, 		0x7CFC00FF);
-*			HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_ARM, 	0xFFA500FF);
-*			HitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_ARM, 	0xFFD700FF);
-*			HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_LEG, 	0x00BFFFFF);
-*			HitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_LEG, 	0x00FFFFFF);
-*			HitmarkerColor(playerid, HITMARKER_BODYPART_HEAD, 		0xFF00FFFF);
-*	
-*			HitmarkerColor(playerid, HITMARKER_KILLSHOTS, 			0xFF0000FF);
-*			HitmarkerColor(playerid, HITMARKER_VEHICLE_DAMAGE, 		0xB03060FF);
-*	
-*			// Включаем индикацию урона по транспорту
-*			HitmarkerEnableVehicleDamage(playerid, true);
-*	
-*			// Отключаем индикацию урона оружием (ID: 5) - Бейсбольная бита
-*			HitmarkerDisableWeapon(playerid, WEAPON_BAT, true);
-*	
-*			// Отключаем индикацию урона наносимого воздушным транспортом при помощи пулемета
-*			HitmarkerDisableWeapon(playerid, HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN, true);
-*	
-*			GameTextForPlayer(playerid, "Hitmarker ~g~~h~On", 1200, 4);
-*		}
-*		else 
-*		{
-*			// Выключаем хитмаркер
-*			HitmarkerDisable(playerid);
-*			GameTextForPlayer(playerid, "Hitmarker ~r~~h~Off", 1200, 4);
-*		}
-*		return 1;
-*	}
-* 
-*
 */
 
 #if defined _hitmarker_included
@@ -181,27 +131,27 @@
 #define _hitmarker_included
 
 #if !defined HITMARKER_SHOW_TIME
-	#define HITMARKER_SHOW_TIME  	            400 // время отображение хитмаркера на экране в миллисекундах
+	#define HITMARKER_SHOW_TIME  	            400 // Hitmarker hide time
 #endif
 
-#define HITMARKER_KILLSHOTS						0 // при полном убийстве игрока
-#define HITMARKER_VEHICLE_DAMAGE				1 // при попадании по транспорту 
-#define HITMARKER_BODYPART_TORSO 				3 // при попадании по торсу
-#define HITMARKER_BODYPART_GROIN 				4 // при попадании по паху
-#define HITMARKER_BODYPART_LEFT_ARM 			5 // при попадании по левой руке
-#define HITMARKER_BODYPART_RIGHT_ARM 			6 // при попадании по правой руке
-#define HITMARKER_BODYPART_LEFT_LEG 			7 // при попадании по левой ноге 
-#define HITMARKER_BODYPART_RIGHT_LEG 			8 // при попадании по правой ноге
-#define HITMARKER_BODYPART_HEAD 				9 // при попадании в голову
+#define HITMARKER_KILLSHOTS						0 // at kill shots
+#define HITMARKER_VEHICLE_DAMAGE				1 // damage to vehicle 
+#define HITMARKER_BODYPART_TORSO 				3 // damage to the right torso
+#define HITMARKER_BODYPART_GROIN 				4 // damage to the right groin
+#define HITMARKER_BODYPART_LEFT_ARM 			5 // left hand damage
+#define HITMARKER_BODYPART_RIGHT_ARM 			6 // right hand damage
+#define HITMARKER_BODYPART_LEFT_LEG 			7 // damage to left leg
+#define HITMARKER_BODYPART_RIGHT_LEG 			8 // damage to right leg
+#define HITMARKER_BODYPART_HEAD 				9 // damage to head
 
-#define HITMARKER_WEAPON_FIST					0 // урон получен кулаком
-#define HITMARKER_DEATH_UNDER_VEHICLE			50 // игрок умер под транспортом или от винтов вертолета
-#define HITMARKER_ALL_EXPLOSION					51 // игрок умер от взрыва
-#define HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN	52 // игрок умер от спец оружие воздушного транспорта пулемет
-#define HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS	53 // игрок умер от спец оружие воздушного транспорта ракета
+#define HITMARKER_WEAPON_FIST					0  // fist damage
+#define HITMARKER_DEATH_UNDER_VEHICLE			50 // the player died under cars or from helicopter rotors
+#define HITMARKER_ALL_EXPLOSION					51 // player died from explosion
+#define HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN	52 // the player died from a special weapon air transport machine gun
+#define HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS	53 // the player died from a special air transport weapon rocket
 
-#define HITMARKER_STANDARD_CROSSHAIR 			0 // изменение положение стандартного прицела
-#define HITMARKER_CENTRE_CROSSHAIR 				1 // изменение положение прицела по центру
+#define HITMARKER_STANDARD_CROSSHAIR 			0 // standard crosshair position
+#define HITMARKER_CENTRE_CROSSHAIR 				1 // centered crosshair position
 
 
 enum HITMARKER_EN
@@ -249,6 +199,7 @@ stock HitmarkerEnabled(playerid)
 	Hitmarker[playerid][h_ModeCamera] = 0;
 
 	new _Hit_text[11] = {92, 1, 47, 126, 110, 126, 47, 1, 92};
+
 	Hitmarker[playerid][h_HitTD] = CreatePlayerTextDraw(playerid, Hitmarker[playerid][h_CrosshairTD_X], Hitmarker[playerid][h_CrosshairTD_Y], _Hit_text);
 	PlayerTextDrawBackgroundColor(playerid, Hitmarker[playerid][h_HitTD], 0);
 	PlayerTextDrawFont(playerid, Hitmarker[playerid][h_HitTD], 0);
@@ -293,7 +244,8 @@ stock GetHitmarkerColor(playerid, type)
 
 stock HitmarkerDisableWeapon(playerid, weaponid, bool:disable)
 {
-	if(Hitmarker[playerid][h_Enabled] == false || weaponid < 0 || weaponid >= 54) return 0;
+	if(weaponid < 0 || weaponid >= 54) return 0;
+
 	switch(weaponid)
 	{
 		case 18: Hitmarker[playerid][h_DisableWeapon][37] = disable;
@@ -308,6 +260,7 @@ stock HitmarkerDisableWeapon(playerid, weaponid, bool:disable)
 			return 1;
 		}
 	}
+
 	Hitmarker[playerid][h_DisableWeapon][weaponid] = disable;
 	return 1;
 }
@@ -315,12 +268,14 @@ stock HitmarkerDisableWeapon(playerid, weaponid, bool:disable)
 stock GetHitmarkerDisabledWeapon(playerid, weaponid)
 {
 	if(weaponid < 0 || weaponid >= 54) return 0;
+
 	return Hitmarker[playerid][h_DisableWeapon][weaponid];
 }
 
 stock HitmarkerSoundDamage(playerid, soundid)
 {
-	if(Hitmarker[playerid][h_Enabled] == false || soundid < 0 || Hitmarker[playerid][h_ShowTD] == true) return 0;
+	if(soundid < 0 || Hitmarker[playerid][h_ShowTD] == true) return 0;
+
 	Hitmarker[playerid][h_SoundDamage] = soundid;
 	return 1;
 }
@@ -332,7 +287,6 @@ stock GetHitmarkerSoundDamage(playerid)
 
 stock HitmarkerEnablePlayerDamage(playerid, bool:enable)
 {
-	if(Hitmarker[playerid][h_Enabled] == false) return 0;
 	Hitmarker[playerid][h_HitType][BULLET_HIT_TYPE_PLAYER] = enable;
 	return 1;
 }
@@ -344,7 +298,6 @@ stock GetHitmarkerEnablePlayerDamage(playerid)
 
 stock HitmarkerEnableVehicleDamage(playerid, bool:enable)
 {
-	if(Hitmarker[playerid][h_Enabled] == false) return 0;
 	Hitmarker[playerid][h_HitType][BULLET_HIT_TYPE_VEHICLE] = enable;
 	return 1;
 }
@@ -356,7 +309,8 @@ stock GetHitmarkerEnableVehicleDamage(playerid)
 
 stock HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y)
 {
-	if(Hitmarker[playerid][h_Enabled] == false || crosshair_type != HITMARKER_STANDARD_CROSSHAIR && crosshair_type != HITMARKER_CENTRE_CROSSHAIR) return 0;
+	if(crosshair_type != HITMARKER_STANDARD_CROSSHAIR && crosshair_type != HITMARKER_CENTRE_CROSSHAIR) return 0;
+
 	if(crosshair_type == HITMARKER_CENTRE_CROSSHAIR)
 	{
 		Hitmarker[playerid][h_CenterCrosshairTD_X] = x; 
@@ -371,21 +325,27 @@ stock HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x
 		Hitmarker[playerid][h_CrosshairTD_SizeX] = size_x;
 		Hitmarker[playerid][h_CrosshairTD_SizeY] = size_y;
 	}
-	PlayerTextDrawDestroy(playerid, Hitmarker[playerid][h_HitTD]);
-	new _Hit_text[11] = {92, 1, 47, 126, 110, 126, 47, 1, 92};
-	Hitmarker[playerid][h_HitTD] = CreatePlayerTextDraw(playerid, x, y, _Hit_text);
-	PlayerTextDrawBackgroundColor(playerid, Hitmarker[playerid][h_HitTD], 0);
-	PlayerTextDrawFont(playerid, Hitmarker[playerid][h_HitTD], 0);
-	PlayerTextDrawLetterSize(playerid, Hitmarker[playerid][h_HitTD], size_x, size_y);
-	PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], -1);
-	PlayerTextDrawSetProportional(playerid, Hitmarker[playerid][h_HitTD], 1);
-	PlayerTextDrawSetShadow(playerid, Hitmarker[playerid][h_HitTD], 1);
+
+	if(Hitmarker[playerid][h_Enabled] == true)
+	{
+		new _Hit_text[11] = {92, 1, 47, 126, 110, 126, 47, 1, 92};
+
+		PlayerTextDrawDestroy(playerid, Hitmarker[playerid][h_HitTD]);
+		Hitmarker[playerid][h_HitTD] = CreatePlayerTextDraw(playerid, x, y, _Hit_text);
+		PlayerTextDrawBackgroundColor(playerid, Hitmarker[playerid][h_HitTD], 0);
+		PlayerTextDrawFont(playerid, Hitmarker[playerid][h_HitTD], 0);
+		PlayerTextDrawLetterSize(playerid, Hitmarker[playerid][h_HitTD], size_x, size_y);
+		PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], -1);
+		PlayerTextDrawSetProportional(playerid, Hitmarker[playerid][h_HitTD], 1);
+		PlayerTextDrawSetShadow(playerid, Hitmarker[playerid][h_HitTD], 1);
+	}
 	return 1;
 }
 
 stock GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y)
 {
 	if(crosshair_type != HITMARKER_STANDARD_CROSSHAIR && crosshair_type != HITMARKER_CENTRE_CROSSHAIR) return 0;
+	
 	if(crosshair_type == HITMARKER_CENTRE_CROSSHAIR)
 	{
 		x = Hitmarker[playerid][h_CenterCrosshairTD_X]; 
@@ -394,14 +354,16 @@ stock GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:
 		size_y = Hitmarker[playerid][h_CenterCrosshairTD_SizeY];
 		return 1;
 	}
+
 	x = Hitmarker[playerid][h_CrosshairTD_X];
 	y = Hitmarker[playerid][h_CrosshairTD_Y];
 	size_x = Hitmarker[playerid][h_CrosshairTD_SizeX];
 	size_y = Hitmarker[playerid][h_CrosshairTD_SizeY];
+
 	return 1;
 }
 
-stock _HitmarkerShowTD(playerid, weaponid)
+static stock _HitmarkerShowTD(playerid, weaponid)
 {
 	if(Hitmarker[playerid][h_Enabled] == false) return 0; 
 
@@ -434,6 +396,7 @@ stock _HitmarkerShowTD(playerid, weaponid)
 		PlayerTextDrawSetShadow(playerid, Hitmarker[playerid][h_HitTD], 1);
 	}
 	else PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], Hitmarker[playerid][h_ColorTD]);
+
 	PlayerTextDrawShow(playerid, Hitmarker[playerid][h_HitTD]);
 	return 1;
 }
@@ -534,7 +497,7 @@ public _HitmarkerTimer(playerid)
 {
     if(killerid != INVALID_PLAYER_ID && Hitmarker[killerid][h_Enabled] == true)
 	{/*
-		* Если игрок убил другого игрока, меняем ему цвет хитмаркера */
+		* change color when lshdd kill shots */
 		Hitmarker[killerid][h_ShowTD] = true;
 		Hitmarker[killerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;
 		Hitmarker[killerid][h_Bodypart] = -1;
@@ -545,8 +508,7 @@ public _HitmarkerTimer(playerid)
 		_HitmarkerShowTD(killerid, reason);
 	}
 	if(Hitmarker[playerid][h_Enabled] == true && Hitmarker[playerid][h_ShowTD] == true)
-	{/* 
-		* Игрок который наносил урон умер. Скрываем ему хитмаркер */
+	{
 		Hitmarker[playerid][h_ShowTD] = false;
 		Hitmarker[playerid][h_ShowTime] = 0;
 		Hitmarker[playerid][h_Bodypart] = -1;
@@ -600,7 +562,7 @@ public _HitmarkerTimer(playerid)
 		{
 			if(Hitmarker[playerid][h_HitTypeID] != hittype && Hitmarker[playerid][h_HitType][hittype] == true && (hittype == BULLET_HIT_TYPE_VEHICLE || hittype == BULLET_HIT_TYPE_PLAYER))
 			{
-				// * Обновляем цвет хитмаркера, если изменился hittype
+				// * Update the hitmarker color if the hittype has changed
 				Hitmarker[playerid][h_Bodypart] = -1;
 				Hitmarker[playerid][h_HitTypeID] = hittype;
 
@@ -610,11 +572,9 @@ public _HitmarkerTimer(playerid)
 			}
 			else if(Hitmarker[playerid][h_HitTypeID] == hittype && hittype == BULLET_HIT_TYPE_VEHICLE && Hitmarker[playerid][h_HitType][BULLET_HIT_TYPE_VEHICLE] == true) 
 			{
-				Hitmarker[playerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;//таймер скрытия TextDraw
+				Hitmarker[playerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;//������ ������� TextDraw
 				if(Hitmarker[playerid][h_ColorTD] != Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE])
 				{
-					// * если стрелять в край руки персонажа, и плавно переводить прицел в сторону машины, цвет хитмаркера не будет меняться.
-					// * проблема в том что, пуля проходит сквозь персонажа и попадает в транспорт. OnPlayerWeaponShot вызывается раньше чем OnPlayerTakeDamage, и тем самым меняет цвет хитмаркера.
 					Hitmarker[playerid][h_ColorTD] = Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE];
 					PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE]);
 					PlayerTextDrawShow(playerid, Hitmarker[playerid][h_HitTD]);
