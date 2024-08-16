@@ -6,9 +6,9 @@
 *   ---------------------------------------------------
 *
 *	Creater - @Bren828 					
-*									13 October 2023
+*									16 August 2024
 *
-*   Version: 1.2
+*   Version: 1.3
 *
 *   ---------------------------------------------------
 *
@@ -134,6 +134,10 @@
 	#define HITMARKER_SHOW_TIME  	            400 // Hitmarker hide time
 #endif
 
+#if !defined HITMARKER_UPDATE_TIMER
+	#define HITMARKER_UPDATE_TIMER 	  		 	400 
+#endif
+
 #define HITMARKER_KILLSHOTS						0 // at kill shots
 #define HITMARKER_VEHICLE_DAMAGE				1 // damage to vehicle 
 #define HITMARKER_BODYPART_TORSO 				3 // damage to the right torso
@@ -157,20 +161,37 @@
 enum HITMARKER_EN
 {
 	bool:h_Enabled,
-	PlayerText:h_HitTD, h_HitTD_Type, 
-	Float:h_CrosshairTD_X, Float:h_CrosshairTD_Y, Float:h_CrosshairTD_SizeX, Float:h_CrosshairTD_SizeY,
-	Float:h_CenterCrosshairTD_X, Float:h_CenterCrosshairTD_Y, Float:h_CenterCrosshairTD_SizeX, Float:h_CenterCrosshairTD_SizeY,
-	h_ColorBodyParts[10], h_ColorTD,
+	PlayerText:h_HitTD, 
+	h_HitTD_Type, 
+
+	Float:h_CrosshairTD_X, 
+	Float:h_CrosshairTD_Y, 
+	Float:h_CrosshairTD_SizeX, 
+	Float:h_CrosshairTD_SizeY,
+
+	Float:h_CenterCrosshairTD_X, 
+	Float:h_CenterCrosshairTD_Y, 
+	Float:h_CenterCrosshairTD_SizeX, 
+	Float:h_CenterCrosshairTD_SizeY,
+
+	h_ColorBodyParts[10], 
+	h_ColorTD,
+
 	bool:h_ShowTD,
 	h_ShowTime,
 	h_Bodypart,
 	h_SpecialAction,
+
 	bool:h_DisableWeapon[54],
-	h_SoundDamage, h_SoundDamageDelay,
+	h_SoundDamage, 
+	h_SoundDamageDelay,
 	h_WeaponIDDamage,
-	bool:h_HitType[3], h_HitTypeID,
+
+	bool:h_HitType[3], 
+	h_HitTypeID,
 	h_Timer,
-	h_ModeCamera
+	h_ModeCamera,
+	bool:h_Killed
 }
 static Hitmarker[MAX_PLAYERS][HITMARKER_EN];
 static const NULL_Hitmarker[HITMARKER_EN];
@@ -184,7 +205,9 @@ stock HitmarkerEnabled(playerid)
 	Hitmarker[playerid][h_HitTD] = PlayerText:INVALID_TEXT_DRAW;
 	for(new x; x < 10; x ++) 
 	{
-		if(Hitmarker[playerid][h_ColorBodyParts][x] == 0) continue;
+		if(Hitmarker[playerid][h_ColorBodyParts][x] == 0) 
+			continue;
+
 		Hitmarker[playerid][h_ColorBodyParts][x] = -1;
 	}
 	Hitmarker[playerid][h_ShowTD] = false;
@@ -197,6 +220,8 @@ stock HitmarkerEnabled(playerid)
 	Hitmarker[playerid][h_HitTD_Type] = 0;
 	Hitmarker[playerid][h_SoundDamageDelay] = GetTickCount();
 	Hitmarker[playerid][h_ModeCamera] = 0;
+	Hitmarker[playerid][h_Timer] = 0;
+	Hitmarker[playerid][h_Killed] = false;
 
 	new _Hit_text[11] = {92, 1, 47, 126, 110, 126, 47, 1, 92};
 
@@ -207,8 +232,6 @@ stock HitmarkerEnabled(playerid)
 	PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], -1);
 	PlayerTextDrawSetProportional(playerid, Hitmarker[playerid][h_HitTD], 1);
 	PlayerTextDrawSetShadow(playerid, Hitmarker[playerid][h_HitTD], 1);
-
-	Hitmarker[playerid][h_Timer] = SetTimerEx("_HitmarkerTimer", 500, true, "d", playerid);
 	return 1;
 }
 
@@ -218,9 +241,12 @@ stock HitmarkerDisable(playerid)
 
 	Hitmarker[playerid][h_Enabled] = false;
 	Hitmarker[playerid][h_ShowTD] = false;
+
 	PlayerTextDrawDestroy(playerid, Hitmarker[playerid][h_HitTD]);
 	Hitmarker[playerid][h_HitTD] = PlayerText:INVALID_TEXT_DRAW;
+
 	KillTimer(Hitmarker[playerid][h_Timer]);
+	Hitmarker[playerid][h_Timer] = 0;
 	return 1;
 }
 
@@ -274,7 +300,7 @@ stock GetHitmarkerDisabledWeapon(playerid, weaponid)
 
 stock HitmarkerSoundDamage(playerid, soundid)
 {
-	if(soundid < 0 || Hitmarker[playerid][h_ShowTD] == true) return 0;
+	if(soundid < 0) return 0;
 
 	Hitmarker[playerid][h_SoundDamage] = soundid;
 	return 1;
@@ -404,78 +430,115 @@ static stock _HitmarkerShowTD(playerid, weaponid)
 forward _HitmarkerTimer(playerid);
 public _HitmarkerTimer(playerid)
 {
-	if(Hitmarker[playerid][h_Enabled] == false) return KillTimer(Hitmarker[playerid][h_Timer]);
-
 	if(Hitmarker[playerid][h_ShowTime] != 0 && Hitmarker[playerid][h_ShowTime] <= GetTickCount() ||
-		
-		Hitmarker[playerid][h_ShowTD] == true && (Hitmarker[playerid][h_WeaponIDDamage] >= 22 && Hitmarker[playerid][h_WeaponIDDamage] <= 34 || Hitmarker[playerid][h_WeaponIDDamage] == 38) && 
-		(
-			GetPlayerWeaponState(playerid) == WEAPONSTATE_RELOADING && Hitmarker[playerid][h_WeaponIDDamage] != 33 && Hitmarker[playerid][h_WeaponIDDamage] != 34 || 
-			GetPlayerWeaponState(playerid) == WEAPONSTATE_NO_BULLETS || 
-			GetPlayerSpecialAction(playerid) != Hitmarker[playerid][h_SpecialAction] || 
-			GetPlayerAnimationIndex(playerid) == 1069 || 
-			GetPlayerAnimationIndex(playerid) == 1070
-		)
-	)
+		Hitmarker[playerid][h_ShowTD] == true && (Hitmarker[playerid][h_WeaponIDDamage] >= 22 && Hitmarker[playerid][h_WeaponIDDamage] <= 34 || 
+		Hitmarker[playerid][h_WeaponIDDamage] == 38) && 
+
+		(GetPlayerWeaponState(playerid) == WEAPONSTATE_RELOADING && Hitmarker[playerid][h_WeaponIDDamage] != 33 && Hitmarker[playerid][h_WeaponIDDamage] != 34 || 
+		GetPlayerWeaponState(playerid) == WEAPONSTATE_NO_BULLETS || 
+		GetPlayerSpecialAction(playerid) != Hitmarker[playerid][h_SpecialAction] || 
+		GetPlayerAnimationIndex(playerid) == 1069 || 
+		GetPlayerAnimationIndex(playerid) == 1070))
 	{
 		Hitmarker[playerid][h_ShowTD] = false;
 		Hitmarker[playerid][h_ShowTime] = 0;
 		Hitmarker[playerid][h_Bodypart] = -1;
 		Hitmarker[playerid][h_SpecialAction] = -1;
 		Hitmarker[playerid][h_ModeCamera] = 0;
+		Hitmarker[playerid][h_Timer] = 0;
+		Hitmarker[playerid][h_Killed] = false;
+
 		PlayerTextDrawHide(playerid, Hitmarker[playerid][h_HitTD]);
-		if(Hitmarker[playerid][h_SoundDamage] != 0) PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
+		if(Hitmarker[playerid][h_SoundDamage] != 0 && Hitmarker[playerid][h_SoundDamage] != 17802) PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
+		return 1;
 	}
+
+	if(Hitmarker[playerid][h_ShowTime] >= GetTickCount()) Hitmarker[playerid][h_Timer] = SetTimerEx("_HitmarkerTimer", HITMARKER_UPDATE_TIMER, false, "d", playerid);
+	else Hitmarker[playerid][h_Timer] = 0;
 	return 1;
 }
 
 
-#if defined _inc_y_hooks || defined _INC_y_hooks
+#if defined _INC_WEAPON_CONFIG 
+	public OnPlayerDamageDone(playerid, Float:amount, issuerid, WEAPON:weapon, bodypart)
+{
+	new weaponid = weapon;
+#elseif defined _inc_y_hooks || defined _INC_y_hooks
 	hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
+{
 #else
 	public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
-#endif
 {
+#endif
     if(issuerid != INVALID_PLAYER_ID && Hitmarker[issuerid][h_Enabled] == true && GetPlayerState(playerid) != PLAYER_STATE_WASTED && GetPlayerState(issuerid) != PLAYER_STATE_WASTED && Hitmarker[issuerid][h_HitType][BULLET_HIT_TYPE_PLAYER] == true && bodypart >= 3 && bodypart <= 9 && weaponid <= 51)
 	{ 
-		new bool:check = false;
+		new bool:hide_td = false;
 		if(GetPlayerState(issuerid) == PLAYER_STATE_DRIVER)
 		{
 			new model = GetVehicleModel(GetPlayerVehicleID(issuerid));
-			if((weaponid == 31 && (model == 447 || model == 476 || model == 464) || weaponid == 38 && model == 425) && Hitmarker[issuerid][h_DisableWeapon][HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN] == true) check = true;
-			else if(weaponid == 49 && Hitmarker[issuerid][h_DisableWeapon][WEAPON_VEHICLE] == true) check = true;
-			else if(weaponid == 50 && Hitmarker[issuerid][h_DisableWeapon][HITMARKER_DEATH_UNDER_VEHICLE] == true) check = true;
-			else if(weaponid == 51 && (model == 425 || model == 520) && Hitmarker[issuerid][h_DisableWeapon][HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS] == true) check = true;
+			if((weaponid == 31 && (model == 447 || model == 476 || model == 464) || weaponid == 38 && model == 425) && Hitmarker[issuerid][h_DisableWeapon][HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN] == true) hide_td = true;
+			else if(weaponid == 49 && Hitmarker[issuerid][h_DisableWeapon][WEAPON_VEHICLE] == true) hide_td = true;
+			else if(weaponid == 50 && Hitmarker[issuerid][h_DisableWeapon][HITMARKER_DEATH_UNDER_VEHICLE] == true) hide_td = true;
+			else if(weaponid == 51 && (model == 425 || model == 520) && Hitmarker[issuerid][h_DisableWeapon][HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS] == true) hide_td = true;
 		}
-		else if(Hitmarker[issuerid][h_DisableWeapon][weaponid] == true) check = true;
+		else if(Hitmarker[issuerid][h_DisableWeapon][weaponid] == true) hide_td = true;
 		
-		if(check == false)
+		if(hide_td == false)
 		{
 			Hitmarker[issuerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;
-			if(Hitmarker[issuerid][h_ShowTD] == false || Hitmarker[issuerid][h_ShowTD] == true && (Hitmarker[issuerid][h_Bodypart] != bodypart || Hitmarker[issuerid][h_WeaponIDDamage] != weaponid || Hitmarker[issuerid][h_ModeCamera] != GetPlayerCameraMode(issuerid)))
+
+			if(Hitmarker[issuerid][h_ShowTD] == false || 
+				Hitmarker[issuerid][h_ShowTD] == true && 
+				(Hitmarker[issuerid][h_Bodypart] != bodypart || Hitmarker[issuerid][h_WeaponIDDamage] != weaponid || Hitmarker[issuerid][h_ModeCamera] != GetPlayerCameraMode(issuerid)))
 			{
 				Hitmarker[issuerid][h_ShowTD] = true;
+				if(Hitmarker[issuerid][h_Timer] == 0) Hitmarker[issuerid][h_Timer] = SetTimerEx("_HitmarkerTimer", HITMARKER_UPDATE_TIMER, false, "d", issuerid);
 				Hitmarker[issuerid][h_Bodypart] = bodypart;
 				Hitmarker[issuerid][h_WeaponIDDamage] = weaponid;
+				Hitmarker[issuerid][h_HitTypeID] = BULLET_HIT_TYPE_PLAYER;
 				Hitmarker[issuerid][h_SpecialAction] = GetPlayerSpecialAction(issuerid);
 				Hitmarker[issuerid][h_ModeCamera] = GetPlayerCameraMode(issuerid);
 				Hitmarker[issuerid][h_ColorTD] = Hitmarker[issuerid][h_ColorBodyParts][bodypart];
 				_HitmarkerShowTD(issuerid, weaponid);
 			}
-			if(Hitmarker[issuerid][h_SoundDamage] != 0 && Hitmarker[issuerid][h_SoundDamageDelay] <= GetTickCount()) 
-			{
-				Hitmarker[issuerid][h_SoundDamageDelay] = GetTickCount() + 50;
-				PlayerPlaySound(issuerid, Hitmarker[issuerid][h_SoundDamage], 0.0, 0.0, 0.0);
-			}
+			
 		}
 	}
-    #if !defined _inc_y_hooks && !defined _INC_y_hooks && defined OnPlayerTakeDamage_Hitmarker
+
+	if(issuerid != INVALID_PLAYER_ID && 
+		Hitmarker[issuerid][h_SoundDamage] != 0 && 
+		Hitmarker[issuerid][h_SoundDamageDelay] <= GetTickCount() && 
+		GetPlayerState(playerid) != PLAYER_STATE_WASTED && 
+		bodypart >= 3 && bodypart <= 9 && weaponid <= 51) 
+	{
+		Hitmarker[issuerid][h_SoundDamageDelay] = GetTickCount() + 50;
+		PlayerPlaySound(issuerid, Hitmarker[issuerid][h_SoundDamage], 0.0, 0.0, 0.0);
+	}
+
+	#if defined _INC_WEAPON_CONFIG && defined OnPlayerDamageDone_Hitmarker
+		return OnPlayerDamageDone_Hitmarker(playerid, amount, issuerid, weapon, bodypart);
+
+    #elseif !defined _inc_y_hooks && !defined _INC_y_hooks && defined OnPlayerTakeDamage_Hitmarker
 		return OnPlayerTakeDamage_Hitmarker(playerid, issuerid, amount, weaponid, bodypart);
 	#else
 		return 1;
 	#endif
 }
-#if !defined _inc_y_hooks && !defined _INC_y_hooks
+
+#if defined _INC_WEAPON_CONFIG
+
+	#if defined _ALS_OnPlayerDamageDone
+		#undef OnPlayerDamageDone
+	#else
+		#define _ALS_OnPlayerDamageDone
+	#endif
+	#define OnPlayerDamageDone OnPlayerDamageDone_Hitmarker
+	#if defined OnPlayerDamageDone_Hitmarker
+		forward OnPlayerDamageDone_Hitmarker(playerid, Float:amount, issuerid, WEAPON:weapon, bodypart);
+	#endif
+
+#elseif !defined _inc_y_hooks && !defined _INC_y_hooks
+
 	#if defined _ALS_OnPlayerTakeDamage
 		#undef OnPlayerTakeDamage
 	#else
@@ -485,8 +548,8 @@ public _HitmarkerTimer(playerid)
 	#if defined OnPlayerTakeDamage_Hitmarker
 		forward OnPlayerTakeDamage_Hitmarker(playerid, issuerid, Float:amount, weaponid, bodypart);
 	#endif
+	
 #endif
-
 
 
 #if defined _inc_y_hooks || defined _INC_y_hooks
@@ -499,14 +562,17 @@ public _HitmarkerTimer(playerid)
 	{/*
 		* change color when lshdd kill shots */
 		Hitmarker[killerid][h_ShowTD] = true;
+		if(Hitmarker[killerid][h_Timer] == 0) Hitmarker[killerid][h_Timer] = SetTimerEx("_HitmarkerTimer", HITMARKER_UPDATE_TIMER, false, "d", killerid);
 		Hitmarker[killerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;
 		Hitmarker[killerid][h_Bodypart] = -1;
 		Hitmarker[killerid][h_WeaponIDDamage] = reason;
 		Hitmarker[killerid][h_SpecialAction] = GetPlayerSpecialAction(killerid);
 		Hitmarker[killerid][h_ModeCamera] = GetPlayerCameraMode(killerid);
 		Hitmarker[killerid][h_ColorTD] = Hitmarker[killerid][h_ColorBodyParts][HITMARKER_KILLSHOTS];
+		Hitmarker[killerid][h_Killed] = true;
 		_HitmarkerShowTD(killerid, reason);
 	}
+
 	if(Hitmarker[playerid][h_Enabled] == true && Hitmarker[playerid][h_ShowTD] == true)
 	{
 		Hitmarker[playerid][h_ShowTD] = false;
@@ -514,9 +580,11 @@ public _HitmarkerTimer(playerid)
 		Hitmarker[playerid][h_Bodypart] = -1;
 		Hitmarker[playerid][h_SpecialAction] = -1;
 		Hitmarker[playerid][h_ModeCamera] = 0;
+		Hitmarker[killerid][h_Killed] = false;
 		PlayerTextDrawHide(playerid, Hitmarker[playerid][h_HitTD]);
-		if(Hitmarker[playerid][h_SoundDamage] != 0) PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
+		if(Hitmarker[playerid][h_SoundDamage] != 0 && Hitmarker[playerid][h_SoundDamage] != 17802) PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
 	}
+
     #if !defined _inc_y_hooks && !defined _INC_y_hooks && defined OnPlayerDeath_Hitmarker
 		return OnPlayerDeath_Hitmarker(playerid, killerid, reason);
 	#else
@@ -545,29 +613,38 @@ public _HitmarkerTimer(playerid)
 {
 	if(Hitmarker[playerid][h_Enabled] == true && (weaponid >= 22 && weaponid <= 34 || weaponid == 38) && Hitmarker[playerid][h_DisableWeapon][weaponid] == false)
 	{
-		new carmode = GetPlayerCameraMode(playerid);
-	    if((carmode == 4 || carmode == 7 || carmode == 53 || carmode == 55) && hittype >= 1 && hittype <= 2 && Hitmarker[playerid][h_HitType][hittype] == true && Hitmarker[playerid][h_ShowTD] == false && hitid != INVALID_PLAYER_ID && (hittype == BULLET_HIT_TYPE_PLAYER && GetPlayerState(hitid) != PLAYER_STATE_WASTED || hittype == BULLET_HIT_TYPE_VEHICLE /* driver check */) )
-	    {
+		new carmode = GetPlayerCameraMode(playerid),
+			color;
+
+		if(hittype == BULLET_HIT_TYPE_PLAYER) color = Hitmarker[playerid][h_ColorBodyParts][HITMARKER_BODYPART_TORSO];
+		else color = Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE];
+
+		if(hittype == BULLET_HIT_TYPE_VEHICLE && Hitmarker[playerid][h_HitType][hittype] == true && hitid != INVALID_PLAYER_ID && Hitmarker[playerid][h_ShowTD] == false)
+		{
 			Hitmarker[playerid][h_ShowTD] = true;
+			
+			if(Hitmarker[playerid][h_Timer] == 0) Hitmarker[playerid][h_Timer] = SetTimerEx("_HitmarkerTimer", HITMARKER_UPDATE_TIMER, false, "d", playerid);
 			Hitmarker[playerid][h_ShowTime] = GetTickCount() + HITMARKER_SHOW_TIME;
+
 			Hitmarker[playerid][h_WeaponIDDamage] = weaponid;
 			Hitmarker[playerid][h_Bodypart] = -1;
 			Hitmarker[playerid][h_SpecialAction] = GetPlayerSpecialAction(playerid);
 			Hitmarker[playerid][h_HitTypeID] = hittype;
 			Hitmarker[playerid][h_ModeCamera] = carmode;
-			Hitmarker[playerid][h_ColorTD] = ((hittype == BULLET_HIT_TYPE_PLAYER) ? (-1) : (Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE]));
+			Hitmarker[playerid][h_ColorTD] = color;
+
 			_HitmarkerShowTD(playerid, weaponid);
-	    }
+		}
 		else if(Hitmarker[playerid][h_ShowTD] == true)
 		{
-			if(Hitmarker[playerid][h_HitTypeID] != hittype && Hitmarker[playerid][h_HitType][hittype] == true && (hittype == BULLET_HIT_TYPE_VEHICLE || hittype == BULLET_HIT_TYPE_PLAYER))
+			if(Hitmarker[playerid][h_HitTypeID] != hittype && hittype >= BULLET_HIT_TYPE_PLAYER && hittype <= BULLET_HIT_TYPE_VEHICLE && Hitmarker[playerid][h_HitType][hittype] == true)
 			{
 				// * Update the hitmarker color if the hittype has changed
 				Hitmarker[playerid][h_Bodypart] = -1;
 				Hitmarker[playerid][h_HitTypeID] = hittype;
+				Hitmarker[playerid][h_ColorTD] = color;
 
-				Hitmarker[playerid][h_ColorTD] = ((hittype == BULLET_HIT_TYPE_PLAYER) ? (-1) : (Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE]));
-				PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], ((hittype == BULLET_HIT_TYPE_PLAYER) ? (-1) : (Hitmarker[playerid][h_ColorBodyParts][HITMARKER_VEHICLE_DAMAGE])) );
+				PlayerTextDrawColor(playerid, Hitmarker[playerid][h_HitTD], Hitmarker[playerid][h_ColorTD]);
 				PlayerTextDrawShow(playerid, Hitmarker[playerid][h_HitTD]);
 			}
 			else if(Hitmarker[playerid][h_HitTypeID] == hittype && hittype == BULLET_HIT_TYPE_VEHICLE && Hitmarker[playerid][h_HitType][BULLET_HIT_TYPE_VEHICLE] == true) 
@@ -580,7 +657,7 @@ public _HitmarkerTimer(playerid)
 					PlayerTextDrawShow(playerid, Hitmarker[playerid][h_HitTD]);
 				}
 			}
-			else if(Hitmarker[playerid][h_HitTypeID] != hittype)
+			else if(Hitmarker[playerid][h_HitTypeID] != hittype && Hitmarker[playerid][h_Killed] == false)
 			{
 				Hitmarker[playerid][h_ShowTD] = false;
 				Hitmarker[playerid][h_ShowTime] = 0;
@@ -588,8 +665,9 @@ public _HitmarkerTimer(playerid)
 				Hitmarker[playerid][h_SpecialAction] = -1;
 				Hitmarker[playerid][h_HitTypeID] = -1;
 				Hitmarker[playerid][h_ModeCamera] = 0;
+				Hitmarker[playerid][h_Killed] = false;
 				PlayerTextDrawHide(playerid, Hitmarker[playerid][h_HitTD]);
-				if(Hitmarker[playerid][h_SoundDamage] != 0) PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
+				if(Hitmarker[playerid][h_SoundDamage] != 0 && Hitmarker[playerid][h_SoundDamage] != 17802) PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
 			}
 		}
 	}
