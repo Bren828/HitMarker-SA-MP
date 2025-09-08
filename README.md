@@ -65,6 +65,8 @@ CMD:Hitmarker(playerid)
 ```
 
 ## Functions
+<details>
+<summary>Click to expand the list</summary>
 
 #### HitmarkerEnabled(playerid)
 > Enable hitmarker
@@ -153,9 +155,11 @@ CMD:Hitmarker(playerid)
 > Get vehicle damage status
 > * `playerid` - The ID of the player
 > * Return (true) if enabled or (false) if disabled
-
+</details>
 
 ## Definition
+<details>
+<summary>Click to expand the list</summary>
 
 #### Editing Color change
 
@@ -206,3 +210,4 @@ HitmarkerDisableWeapon(playerid, HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN, true);
 #### Usage
 ```pawn
 HitmarkerPosition(playerid, HITMARKER_STANDARD_CROSSHAIR, 332.5, 172.5, 0.33, 0.7);
+</details>
