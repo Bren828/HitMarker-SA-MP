@@ -1,23 +1,23 @@
 # HitMarker SA-MP
 
-A hitmarker is the little x that pops up in your crosshairs when one of your bullets hits someone.
+A lightweight, highly customizable hitmarker library for SA-MP
 
-![Crosshair](https://raw.githubusercontent.com/Bren828/HitMarker-SA-MP/main/preview.png)
+![Crosshair](preview.png)
 
 ## Main features
-* Changing the color of the marker by body part or transport.
-* Disabling the marker for weapons of transport.
-* Play sound when hit
-* Setting the position and size of the hitmarker.
+* Customizable colors for different body parts and vehicles.
+* Weapon exclusion: disable the marker for specific weapons (e.g., vehicle weapons).
+* Audio feedback: play a sound on every successful hit.
+* Fully adjustable: set custom position and size for the marker.
 
 ## Reference
-* [Installation](https://github.com/Bren828/HitMarker-SA-MP#installation)
-* [Example](https://github.com/Bren828/HitMarker-SA-MP#example)
-* [Functions](https://github.com/Bren828/HitMarker-SA-MP#functions)
-* [Definition](https://github.com/Bren828/HitMarker-SA-MP#definition)
-  * [Editing Color change](https://github.com/Bren828/HitMarker-SA-MP#editing-color-change)
-  * [Editing Disabling weapons](https://github.com/Bren828/HitMarker-SA-MP#editing-disabling-weapons)
-  * [Change position](https://github.com/Bren828/HitMarker-SA-MP#change-position)
+* [Installation](#installation)
+* [Example](#example)
+* [Functions](#functions)
+* [Definitions](#definitions)
+  * [Color IDs](#color-ids)
+  * [Weapon IDs](#weapon-ids)
+  * [Change position](#change-position)
 
 ## Installation
 
@@ -29,34 +29,32 @@ Include in your code and begin using the library:
 ## Example
 
 ```pawn
-CMD:Hitmarker(playerid)
-{
-    if(HitmarkerStatus(playerid) == false)
-    {
-        HitmarkerEnabled(playerid);
+CMD:hitmarker(playerid) {
+
+    if(!IsHitmarkerEnabled(playerid)) {
+
+        HitmarkerEnable(playerid);
 
         // Setting the hit colors
-        HitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 0xFFFFFFFF);
-        HitmarkerColor(playerid, HITMARKER_BODYPART_GROIN, 0x7CFC00FF);
-        HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_ARM, 0xFFA500FF);
-        HitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_ARM, 0xFFD700FF);
-        HitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_LEG, 0x00BFFFFF);
-        HitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_LEG, 0x00FFFFFF);
-        HitmarkerColor(playerid, HITMARKER_BODYPART_HEAD, 0xFF00FFFF);
+        SetHitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 0xFFFFFFFF);
+        SetHitmarkerColor(playerid, HITMARKER_BODYPART_GROIN, 0x7CFC00FF);
+        SetHitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_ARM, 0xFFA500FF);
+        SetHitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_ARM, 0xFFD700FF);
+        SetHitmarkerColor(playerid, HITMARKER_BODYPART_LEFT_LEG, 0x00BFFFFF);
+        SetHitmarkerColor(playerid, HITMARKER_BODYPART_RIGHT_LEG, 0x00FFFFFF);
+        SetHitmarkerColor(playerid, HITMARKER_BODYPART_HEAD, 0xFF00FFFF);
 
-        HitmarkerColor(playerid, HITMARKER_KILLSHOTS, 0xFF0000FF);
-        HitmarkerColor(playerid, HITMARKER_VEHICLE_DAMAGE, 0xB03060FF);
+        SetHitmarkerColor(playerid, HITMARKER_COLOR_KILLSHOT, 0xFF0000FF);
+        SetHitmarkerColor(playerid, HITMARKER_COLOR_VEHICLE, 0xB03060FF);
 
-        HitmarkerEnableVehicleDamage(playerid, true);
+        ToggleHitmarkerVehicleDamage(playerid, true);
 
-        HitmarkerDisableWeapon(playerid, WEAPON_BAT, true);
-
-        HitmarkerDisableWeapon(playerid, HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN, true);
+        ToggleHitmarkerWeapon(playerid, WEAPON_BAT, true);
+        ToggleHitmarkerWeapon(playerid, HITMARKER_AIR_WEAPON_MINIGUN, true);
 
         GameTextForPlayer(playerid, "Hitmarker ~g~~h~On", 1200, 4);
     }
-    else 
-    {
+    else {
         HitmarkerDisable(playerid);
         GameTextForPlayer(playerid, "Hitmarker ~r~~h~Off", 1200, 4);
     }
@@ -68,46 +66,46 @@ CMD:Hitmarker(playerid)
 <details>
 <summary>Click to expand the list</summary>
 
-#### HitmarkerEnabled(playerid)
-> Enable hitmarker
+#### HitmarkerEnable(playerid)
+> Enables the hitmarker for a player.
 > * `playerid` - The ID of the player
 
 #### HitmarkerDisable(playerid)
-> Disable hitmarker
+> Disables the hitmarker for a player.
 > * `playerid` - The ID of the player
   
-#### bool:HitmarkerStatus(playerid)
-> Get hitmarker status
+#### IsHitmarkerEnabled(playerid)
+> Checks if the hitmarker is enabled.
 > * `playerid` - The ID of the player
 > * Return (true) if enabled or (false) if disabled
   
-#### HitmarkerColor(playerid, type, color)
+#### SetHitmarkerColor(playerid, type, color)
 > Set hitmarker color
 > * `playerid` - The ID of the player
-> * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP#editing-color-change)
+> * `type` - [Color Ids](#color-ids)
 > * `color` - The color to set. Supports alpha values.
 
 #### GetHitmarkerColor(playerid, type)
 > Get hitmarker color
 > * `playerid` - The ID of the player
-> * `type` - [Color definition](https://github.com/Bren828/HitMarker-SA-MP#editing-color-change)
+> * `type` - [Color Ids](#color-ids)
 > * Returns the color
 
-#### HitmarkerDisableWeapon(playerid, weaponid, bool:disable)
+#### ToggleHitmarkerWeapon(playerid, weaponid, bool:toggle)
 > Disable the hitmarker for a specific weapon
 > * `playerid` - The ID of the player
-> * `weaponid` - [Weapon IDs](https://github.com/Bren828/HitMarker-SA-MP#editing-disabling-weapons)
-> * `disable` - `true` to disable / `false` to enable
-> * **При отключении огневого оружия, отключается оружие (ID: 18, 37)**
-> * **При отключении взрывного оружия, отключается оружие (ID: 16, 35, 36, 39, 51) Не распространяется на воздушный транспорт.**
+> * `weaponid` - [Weapon IDs](#weapon-ids)
+> * `toggle` - `true` to disable / `false` to enable
+> * **Disabling certain firearms also affects associated weapons (IDs: 18, 37).**
+> * **Disabling explosive weapons also affects associated weapons (IDs: 16, 35, 36, 39, 51). This rule does not apply to air transport.**
 
-#### GetHitmarkerDisabledWeapon(playerid, weaponid)
+#### IsHitmarkerWeaponDisabled(playerid, weaponid)
 > Get hitmarker status for a certain weapon
 > * `playerid` - The ID of the player
-> * `weaponid` - [Weapon IDs](https://github.com/Bren828/HitMarker-SA-MP#editing-disabling-weapons)
+> * `weaponid` - [Weapon IDs](#weapon-ids)
 > * Return (true) if disabled or (false) if enabled
 
-#### HitmarkerSoundDamage(playerid, soundid)
+#### SetHitmarkerSoundDamage(playerid, soundid)
 > Enable hit sound
 > * `playerid` - The ID of the player
 > * `soundid` - Sound IDs
@@ -117,97 +115,101 @@ CMD:Hitmarker(playerid)
 > * `playerid` - The ID of the player
 > * Returns sound ID
 
-#### HitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:size_x, Float:size_y)
+#### SetHitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:sizeX, Float:sizeY)
 > Set the marker position
 > * `playerid` - The ID of the player
-> * `crosshair_type` - [Position determination](https://github.com/Bren828/HitMarker-SA-MP#change-position)
+> * `crosshair_type` - [Change position](#change-position)
 > * `Float:x` - The X (left/right) coordinate to create the textdraw at.
 > * `Float:y` - The Y (up/down) coordinate to create the textdraw at.
-> * `Float:size_x` - Width
-> * `Float:size_y` - Height 
+> * `Float:sizeX` - Width
+> * `Float:sizeY` - Height 
 
-#### GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:size_x, &Float:size_y)
+#### GetHitmarkerPosition(playerid, crosshair_type, &Float:x, &Float:y, &Float:sizeX, &Float:sizeY)
 > Get current hitmarker position
 > * `playerid` - The ID of the player
-> * `crosshair_type` - [Position determination](https://github.com/Bren828/HitMarker-SA-MP#change-position)
+> * `crosshair_type` - [Change position](#change-position)
 > * `&Float:x` - The X (left/right) coordinate
 > * `&Float:y` - The Y (up/down) coordinate
-> * `&Float:size_x` - Width
-> * `&Float:size_y` - Height 
+> * `&Float:sizeX` - Width
+> * `&Float:sizeY` - Height 
 
-#### HitmarkerEnablePlayerDamage(playerid, bool:enable)
+#### ToggleHitmarkerPlayerDamage(playerid, bool:toggle)
 > Enable player damage indication
 > * `playerid` - The ID of the player
-> * `enable` - `true` to enable / `false` to disable
-> * По стандарту включено
+> * `toggle` - `true` to enable / `false` to disable
+> * Enabled by default.
 
-#### GetHitmarkerEnablePlayerDamage(playerid)
+#### IsHitmarkerPlayerDamageEnabled(playerid)
 > Get player damage status
 > * `playerid` - The ID of the player
 > * Return (true) if enabled or (false) if disabled
 
-#### HitmarkerEnableVehicleDamage(playerid, bool:enable)
+#### ToggleHitmarkerVehicleDamage(playerid, bool:toggle)
 > Enable vehicle damage indication
 > * `playerid` - The ID of the player
-> * `enable` - `true` to enable / `false` to disable
+> * `toggle` - `true` to enable / `false` to disable
 
-#### GetHitmarkerEnableVehicleDamage(playerid)
+#### IsHitmarkerVehicleDamageEnabled(playerid)
 > Get vehicle damage status
 > * `playerid` - The ID of the player
 > * Return (true) if enabled or (false) if disabled
 </details>
 
-## Definition
+## Definitions
+
+#### Color IDs
 <details>
 <summary>Click to expand the list</summary>
 
-#### Editing Color change
+| Definition                    | ID | Notes |
+| ----------------------------- | -- | ---------------------------- |
+| HITMARKER_COLOR_KILLSHOT      | 0  | The player died              |
+| HITMARKER_COLOR_VEHICLE       | 1  | Vehicle damage dealt.        |  
+| HITMARKER_BODYPART_TORSO      | 3  | Hit on the torso             |
+| HITMARKER_BODYPART_GROIN      | 4  | Hit in the groin             |
+| HITMARKER_BODYPART_LEFT_ARM   | 5  | Hit on the left arm          |
+| HITMARKER_BODYPART_RIGHT_ARM  | 6  | Hit on the right arm         |
+| HITMARKER_BODYPART_LEFT_LEG   | 7  | Hit on the left leg          |
+| HITMARKER_BODYPART_RIGHT_LEG  | 8  | Hit on the right leg         |
+| HITMARKER_BODYPART_HEAD       | 9  | Headshot hit                 |
 
-| Definition    | ID | Notes |
-| --------------|:--:|-------|
-| HITMARKER_KILLSHOTS | 0 | The player died |
-| HITMARKER_VEHICLE_DAMAGE | 1 | Transport damage |  
-| HITMARKER_BODYPART_TORSO | 3 | When hit on the torso |
-| HITMARKER_BODYPART_GROIN | 4  | When hit in the groin |
-| HITMARKER_BODYPART_LEFT_ARM | 5 | When hit on the left hand |
-| HITMARKER_BODYPART_RIGHT_ARM | 6 | When hit on the right hand |
-| HITMARKER_BODYPART_LEFT_LEG | 7 | When hit on the left leg |
-| HITMARKER_BODYPART_RIGHT_LEG | 8 | When hit on the right leg |
-| HITMARKER_BODYPART_HEAD | 9 | When hit on the headу |
+##### Usage
 
-#### Usage
 ```pawn
-HitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 0xFFFFFFFF);
+SetHitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 0xFFFFFFFF);
 ```
+</details>
 
----
+#### Weapon IDs
+<details>
+<summary>Click to expand the list</summary>
 
-#### Editing Disabling weapons
-###### Hitmarker definitions
+| Icon                                                                      | Definition                            | ID | Notes                                       | 
+| ------------------------------------------------------------------------- | ------------------------------------- | -- | --------------------------------------------|
+| ![](https://assets.open.mp/assets/images/deathIcons/death-fist.gif)       | HITMARKER_WEAPON_FIST                 | 0  | Damage received by fist                     |
+| ![](https://assets.open.mp/assets/images/deathIcons/death-heliBlades.gif) | HITMARKER_WEAPON_VEHICLE_CRUSH        | 50 | Death by vehicle crush or helicopter blades |
+| ![](https://assets.open.mp/assets/images/deathIcons/death-explosion.gif)  | HITMARKER_ALL_EXPLOSION               | 51 | Death by explosion                          |
+| ![](https://assets.open.mp/assets/images/deathIcons/death-m4.gif)         | HITMARKER_AIR_WEAPON_MINIGUN          | 52 | Death from vehicle-mounted machine guns     |
+| ![](https://assets.open.mp/assets/images/deathIcons/death-explosion.gif)  | HITMARKER_AIR_WEAPON_ROCKETS          | 53 | Death from vehicle-mounted rockets          |
 
-| Icon |Definition            | ID  | Notes | 
--------|-----------------|-----|-------|
-| ![](https://assets.open.mp/assets/images/deathIcons/death-fist.gif) | HITMARKER_WEAPON_FIST | 0   | Damage received by fist |
-| ![](https://assets.open.mp/assets/images/deathIcons/death-heliBlades.gif) | HITMARKER_DEATH_UNDER_VEHICLE | 50 | The player died under transport or from helicopter propellers |
-| ![](https://assets.open.mp/assets/images/deathIcons/death-explosion.gif) | HITMARKER_ALL_EXPLOSION | 51 | The player died from the explosion |
-| ![](https://assets.open.mp/assets/images/deathIcons/death-m4.gif) | HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN | 52 | The player died from a special weapon air transport machine gun |
-| ![](https://assets.open.mp/assets/images/deathIcons/death-explosion.gif) | HITMARKER_AIR_VEHICLE_WEAPON_ROCKETS | 53 | The player died from a special weapon air transport rocket |
+##### Usage
 
-#### Usage
 ```pawn
-HitmarkerDisableWeapon(playerid, HITMARKER_AIR_VEHICLE_WEAPON_MINIGUN, true);
+ToggleHitmarkerWeapon(playerid, HITMARKER_AIR_WEAPON_MINIGUN, true);
 ```
-
----
+</details>
 
 #### Change position
+<details>
+<summary>Click to expand the list</summary>
 
-| Definition    | ID | Notes |
-| --------------|:--:|-------|
-| HITMARKER_STANDARD_CROSSHAIR | 0 | Set standard position<br />**Used for firearms (ID: 22 - 33, 37 - 38)** |
-| HITMARKER_CENTRE_CROSSHAIR | 1 | Set the center position<br />**Used for melee weapons and vehicles** | 
+| Definition                    | ID  | Notes                                                                       |
+| ----------------------------- | --- | --------------------------------------------------------------------------- |
+| HITMARKER_POS_STANDARD        | 0   | Set standard position<br />**Used for firearms (ID: 22 - 33, 37 - 38)**     |
+| HITMARKER_POS_CENTER          | 1   | Set the center position<br />**Used for melee weapons and vehicles**        | 
 
-#### Usage
+##### Usage
 ```pawn
-HitmarkerPosition(playerid, HITMARKER_STANDARD_CROSSHAIR, 332.5, 172.5, 0.33, 0.7);
+SetHitmarkerPosition(playerid, HITMARKER_POS_STANDARD, 332.5, 172.5, 0.33, 0.7);
+```
 </details>
