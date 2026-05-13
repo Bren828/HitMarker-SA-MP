@@ -27,6 +27,8 @@ Include in your code and begin using the library:
 ```
 
 ## Example
+<details>
+<summary>Click to expand the list</summary>
 
 ```pawn
 CMD:hitmarker(playerid) {
@@ -61,6 +63,7 @@ CMD:hitmarker(playerid) {
     return 1;
 }
 ```
+</details>
 
 ## Functions
 <details>
@@ -178,6 +181,7 @@ CMD:hitmarker(playerid) {
 ```pawn
 SetHitmarkerColor(playerid, HITMARKER_BODYPART_TORSO, 0xFFFFFFFF);
 ```
+
 </details>
 
 #### Weapon IDs
@@ -211,5 +215,16 @@ ToggleHitmarkerWeapon(playerid, HITMARKER_AIR_WEAPON_MINIGUN, true);
 ##### Usage
 ```pawn
 SetHitmarkerPosition(playerid, HITMARKER_POS_STANDARD, 332.5, 172.5, 0.33, 0.7);
+```
+</details>
+
+#### Other
+<details>
+<summary>Click to expand the list</summary>
+
+```pawn
+#define HITMARKER_VISIBLE_TIME 400
+#define HITMARKER_TICK_RATE 400 
+#define HITMARKER_DEFAULT_COLOR 0xFFFFFFFF
 ```
 </details>

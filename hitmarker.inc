@@ -6,9 +6,9 @@
 *   ---------------------------------------------------
 *
 *	Created by Bren828 					
-*									02 May 2026
+*									13 May 2026
 *
-*   Version: 1.4
+*   Version: 1.4.1
 *
 *   ---------------------------------------------------
 *
@@ -30,6 +30,10 @@
 
 #if !defined HITMARKER_TICK_RATE
 	#define HITMARKER_TICK_RATE 400 
+#endif
+
+#if !defined HITMARKER_DEFAULT_COLOR
+	#define HITMARKER_DEFAULT_COLOR 0xFFFFFFFF
 #endif
 
 
@@ -107,20 +111,13 @@ stock HitmarkerEnable(playerid) {
 	Hitmarker[playerid][h_Enabled] = true;
 	Hitmarker[playerid][h_TextDraw] = PlayerText:INVALID_TEXT_DRAW;
 
-	for(new i; i < 10; i ++) {
-		if(Hitmarker[playerid][h_HitColors][i] == 0) {
-			continue;
-		}
-		Hitmarker[playerid][h_HitColors][i] = -1;
-	}
-
 	Hitmarker[playerid][h_Visible] = false;
 	Hitmarker[playerid][h_ShowTime] = 0;
 	Hitmarker[playerid][h_BodyPart] = -1;
 	Hitmarker[playerid][h_LastSpecialAction] = -1;
 	Hitmarker[playerid][h_HitTypeEnabled][BULLET_HIT_TYPE_PLAYER] = true;
 	Hitmarker[playerid][h_HitType] = -1;
-	Hitmarker[playerid][h_Color] = -1;
+	Hitmarker[playerid][h_Color] = HITMARKER_DEFAULT_COLOR;
 	Hitmarker[playerid][h_PosType] = 0;
 	Hitmarker[playerid][h_SoundDamageDelay] = GetTickCount();
 	Hitmarker[playerid][h_LastCameraMode] = 0;
@@ -131,7 +128,7 @@ stock HitmarkerEnable(playerid) {
 	PlayerTextDrawBackgroundColor(playerid, Hitmarker[playerid][h_TextDraw], 0);
 	PlayerTextDrawFont(playerid, Hitmarker[playerid][h_TextDraw], 0);
 	PlayerTextDrawLetterSize(playerid, Hitmarker[playerid][h_TextDraw], Hitmarker[playerid][h_SizeX], Hitmarker[playerid][h_SizeY]);
-	PlayerTextDrawColor(playerid, Hitmarker[playerid][h_TextDraw], -1);
+	PlayerTextDrawColor(playerid, Hitmarker[playerid][h_TextDraw], Hitmarker[playerid][h_Color]);
 	PlayerTextDrawSetProportional(playerid, Hitmarker[playerid][h_TextDraw], 1);
 	PlayerTextDrawSetShadow(playerid, Hitmarker[playerid][h_TextDraw], 1);
 	return 1;
@@ -284,7 +281,7 @@ stock SetHitmarkerPosition(playerid, crosshair_type, Float:x, Float:y, Float:siz
 		PlayerTextDrawBackgroundColor(playerid, Hitmarker[playerid][h_TextDraw], 0);
 		PlayerTextDrawFont(playerid, Hitmarker[playerid][h_TextDraw], 0);
 		PlayerTextDrawLetterSize(playerid, Hitmarker[playerid][h_TextDraw], sizeX, sizeY);
-		PlayerTextDrawColor(playerid, Hitmarker[playerid][h_TextDraw], -1);
+		PlayerTextDrawColor(playerid, Hitmarker[playerid][h_TextDraw], Hitmarker[playerid][h_Color]);
 		PlayerTextDrawSetProportional(playerid, Hitmarker[playerid][h_TextDraw], 1);
 		PlayerTextDrawSetShadow(playerid, Hitmarker[playerid][h_TextDraw], 1);
 	}
@@ -644,6 +641,11 @@ public _HitmarkerTimer(playerid) {
 #endif
 {
     Hitmarker[playerid] = NULL_Hitmarker;
+
+	for(new i; i < 10; i ++) {
+		Hitmarker[playerid][h_HitColors][i] = HITMARKER_DEFAULT_COLOR;
+	}
+
 	Hitmarker[playerid][h_X] = 332.5;
 	Hitmarker[playerid][h_Y] = 172.5;
 	Hitmarker[playerid][h_SizeX] = 0.33;
